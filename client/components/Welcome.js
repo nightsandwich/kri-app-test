@@ -12,27 +12,26 @@ const Welcome = ({auth, logout}) => {
 
     return (
        
-        <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center' marginRight='.5rem'>
-          <Box marginBottom={0}>
-            <Typography>
-              Welcome, {auth.initials}!
+        <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center' marginRight='.5rem' paddingBottom={0}>
+          <Box paddingBottom={0} marginBottom={0}>
+            <Typography sx={{color: 'black'}}>
+              Hi, {auth.initials}!
             </Typography>
           </Box>
-          <Box display='flex' marginTop={0}>
-            <Box>
+          <Box display='flex' margin={0}>
+            <Box margin={0}>
               <Tooltip title="Profile">
                 <IconButton
                   style={{
                     borderRadius: 4,
                     alignSelf: 'center',
-                    color: 'white', 
-                    fontWeight: 'bold',
+                    color: '#1976d2', 
                   }}
                   component={Link}
                   to='/profile'
-                  size='medium'
+                  size='small'
                 >
-                  <AccountBoxIcon />
+                  <AccountBoxIcon fontSize="large" />
                 </IconButton>
               </Tooltip>
             </Box>
@@ -42,13 +41,13 @@ const Welcome = ({auth, logout}) => {
                   style={{
                     borderRadius: 4,
                     alignSelf: 'center',
-                    color: 'white', 
-                    fontWeight: 'bold',
+                    color: '#1976d2',
                   }}
+                  size='small'
                   onClick={logout}
-                  size='medium'
+                  
                 >
-                  <ExitToAppIcon />
+                  <ExitToAppIcon fontSize="large"/>
                 </IconButton>
               </Tooltip>
               {/* <Tooltip title="Log Out">

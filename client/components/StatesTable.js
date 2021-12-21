@@ -37,16 +37,26 @@ const StatesTable = () => {
     const counties = useSelector(state => state.counties)
     const [isLoaded, setIsLoaded] = useState(false)
 
-    const loadData = async () => {
-        await dispatch(loadStates())
-        await dispatch(loadCounties())
-        await dispatch(loadNotes())
-        await setIsLoaded(true)
-    }
+    // const loadData = async () => {
+    //     await dispatch(loadStates())
+    //     await dispatch(loadCounties())
+    //     await dispatch(loadNotes())
+    //     await setIsLoaded(true)
+    // }
 
-    useEffect(() => {
-    loadData()
-    }, [])
+    // useEffect(() => {
+    //     // let isSubscribed = true;
+    //     try {
+    //         loadData();
+    //     } catch (err) {
+    //         // if (isSubscribed) {
+    //             console.log(err)
+    //             // setIsLoaded(false)
+    //         // }
+    //     }
+    //     // return () => isSubscribed = false
+    
+    // }, [])
 
     
     const [open, setOpen] = useState(false);
@@ -116,6 +126,11 @@ const StatesTable = () => {
             color: '#099451'}}/>),
       };
 
+
+    // if (!isLoaded ) return <CircularLoading />
+    
+    if (!states || !counties || !notes || !auth ) return <CircularLoading />
+    
     const columns = [
         { title: 'State', field: 'name' },
         { title: 'Summary', field: 'summary',
@@ -169,7 +184,7 @@ const StatesTable = () => {
         }
     ));
 
-    if (!isLoaded ) return <CircularLoading />
+    
 
     return (
         <>

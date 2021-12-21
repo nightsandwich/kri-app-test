@@ -45,17 +45,17 @@ const CountiesTable = () => {
     const state = useSelector(state => state.states.find(st => st.id === stateId));
     let counties = useSelector(state => state.counties.filter(county => county.stateId === stateId));
     let notes = useSelector(state => state.notes);
-    const [isLoaded, setIsLoaded] = useState(false)
+    // const [isLoaded, setIsLoaded] = useState(false)
 
-    useEffect(() => {
-        async function loadData (){
-            await dispatch(loadStates());
-            await dispatch(loadNotes());
-            await dispatch(loadCounties());
-            setIsLoaded(true)
-        };
-        loadData();
-    }, []);
+    // useEffect(() => {
+    //     async function loadData (){
+    //         await dispatch(loadStates());
+    //         await dispatch(loadNotes());
+    //         await dispatch(loadCounties());
+    //         setIsLoaded(true)
+    //     };
+    //     loadData();
+    // }, []);
 
     
     const [open, setOpen] = useState(false);
@@ -70,7 +70,8 @@ const CountiesTable = () => {
         setOpenProject(true);
     }
     
-    if (!isLoaded) return <CircularLoading />
+    // if (!isLoaded) return <CircularLoading />
+    if (!state || !counties || !notes || !auth) return <CircularLoading />
     const stateName = state.name;
     counties = counties.sort((a,b) => a.name < b.name ? -1 : 1)
     

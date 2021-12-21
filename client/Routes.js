@@ -11,23 +11,29 @@ import Footer from './components/Footer';
 import StatesTable from './components/StatesTable';
 import Profile from './components/Profile';
 import Password from './components/Password';
-import {me} from './store'
+import Header from './components/Header';
+import {me, loadNotes, loadCounties, loadStates} from './store'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData()
+    this.props.loadInitialData();
+    // this.props.loadInitialStates();
+    // this.props.loadInitialCounties();
+    // this.props.loadInitialNotes();
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, states, counties, notes} = this.props
 
     return (
       <div>
-        <Route component={Navbar} path='/'/>
+        {/* <Route component={Navbar} path='/'/> */}
         {isLoggedIn ? (
+          <>
+            <Route component={Header} path='/'/>
           <Switch>
             {/* <Route path="/home" component={Home} /> */}
             <Route exact path="/profile" component={Profile} />
@@ -39,6 +45,7 @@ class Routes extends Component {
             <Route component={EdgarParser} path='/parseproedgar' />
             <Redirect to="/states" />
           </Switch>
+          </>
         ) : (
           <Switch>
             <Route path='/' exact component={ Login } />
@@ -59,7 +66,11 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
+    // auth: state.auth,
+    // counties: state.counties,
+    // states: state.states,
+    // notes: state.notes
   }
 }
 
@@ -67,6 +78,15 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+    },
+    loadInitialCounties(){
+      dispatch(loadCounties())
+    },
+    loadInitialStates(){
+      dispatch(loadStates())
+    },
+    loadInitialNotes(){
+      dispatch(loadNotes())
     }
   }
 }

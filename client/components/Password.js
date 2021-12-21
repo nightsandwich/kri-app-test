@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
 //////////// MUI //////////////////
-import { Avatar, Box, Button, Container, IconButton, Grid, OutlinedInput, InputLabel, InputAdornment, FormControl, TextField, Typography, Alert as MuiAlert, Snackbar } from '@mui/material';
+import { Alert, Avatar, Box, Button, Container, IconButton, Grid, OutlinedInput, InputLabel, InputAdornment, FormControl, TextField, Typography, Alert as MuiAlert, Snackbar } from '@mui/material';
 import { Visibility, VisibilityOff, FlightTakeoff as FlightTakeoffIcon, VpnKey as VpnKeyIcon, Settings as SettingsIcon, ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 
 ///////////////// REDUX /////////////////
@@ -69,9 +69,9 @@ const Password = () => {
   }
 
   //////////// SNACKBAR ALERT //////////////////
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
-  });
+  // const Alert = React.forwardRef(function Alert(props, ref) {
+  //   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
+  // });
 
   const [openAlert, setOpenAlert] = useState(false)
   const handleClose = () => {
@@ -80,9 +80,6 @@ const Password = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Button component={Link} to='/profile' variant='contained' startIcon={<ArrowBackIcon />}>
-        Back
-      </Button>
       <Snackbar open={openAlert} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
           Password Changed!
@@ -90,12 +87,17 @@ const Password = () => {
       </Snackbar>
       <Box
         sx={{
-          marginTop: 4,
+          marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
       >
+        <Box alignSelf='start'>
+          <Button sx={{color: '#1976d2'}} size='small' component={Link} to='/profile' variant='contained' startIcon={<ArrowBackIcon />}>
+            Back
+          </Button>
+        </Box>
         <Avatar sx={{ height: 60, width: 60, m: 1, bgcolor: 'primary.main' }}>
           <VpnKeyIcon fontSize='large' />
         </Avatar>

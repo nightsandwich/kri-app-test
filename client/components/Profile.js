@@ -51,7 +51,7 @@ const Profile = () => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" >
       <Snackbar open={openAlert} autoHideDuration={4000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
           Profile Updated!
@@ -59,20 +59,21 @@ const Profile = () => {
       </Snackbar>
       <Box
         sx={{
-          marginTop: 4,
+          marginTop: 6,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
       >
         
-        <Avatar sx={{ height: 60, width: 60, m: 1, bgcolor: 'primary.main' }} src={<EditIcon/>} >
+        <Avatar sx={{ height: 60, width: 60, m: 1, bgcolor: 'primary.main' }}  >
+          <EditIcon/>
         </Avatar>
         
         <Typography component="h1" variant="h5">
           {auth.initials}'s Profile
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 4 }}>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
               <TextField

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
-import { AppBar, Box, Button, Dialog, Toolbar } from "@material-ui/core";
+import { AppBar, Box, Button, Dialog, Toolbar } from "@mui/material";
 import ProjectSummary from "./ProjectSummary";
 import { useDispatch } from "react-redux";
 import ProjectCounties from './ProjectCounties';
@@ -54,46 +54,67 @@ const Navbar = ({handleClick, isLoggedIn, auth, counties, allStates, loadData}) 
     <h1>KRI RESEARCH TRACKER</h1>
     <nav>
       {isLoggedIn ? (
-        <nav style={{position: 'static'}}>
-          {/* The navbar will show these links after you log in */}
-          <AppBar>
+          <nav style={{ position: 'sticky', zIndex: 10}}>
           <Dialog onClose={handleClose} open={openCounties}  maxWidth='lg'>
               <ProjectCounties handleClose={handleClose}/>
           </Dialog>
           <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
-              <ProjectSummary states={states} counties={counties} handleClose={handleClose} />
-          </Dialog>
-              {/* <Toolbar style={{backgroundColor, borderRadius: 3, border: '1px solid grey', padding: '1rem', boxShadow: '0 8px 8px -4px lightgrey'}} > */}
-              <Box display='flex' justifyContent='space-around' alignContent='center' flexWrap='wrap'>
-                <Box display="flex" 
-                  alignItems='center'
-                  justifyContent='space-evenly'
-                  marginLeft='.5rem'
-                  padding={0}
-                >
-                  <Welcome auth={auth} logout={handleClick} />
-                  <Button component={Link} to='/states'style={styles.projectButton} size='large' variant='outlined'>
-                    States
-                  </Button>
-                </Box>
-                <Box display='flex' justifyContent='center' alignContent='center'>
-                  <Box display='flex' flexDirection='column' justifyContent='center'>
-                    <Button size='small' style={styles.projectButton} variant='outlined' onClick={handleOpen}>Project Summary </Button>
-                    <Button size='small' style={styles.projectButton} variant='outlined' onClick={ (ev) => handleOpenCounties(ev)}>Project Counties ({counties.length}) </Button>
-                  </Box>
-                </Box>
-                <Box display='flex' flexDirection='column' justifyContent='center'>
-                  <Button component={Link} to='/parseaddresses' style={styles.parseButton} variant='outlined' size='small' >
-                    Format Addresses
-                  </Button>
-                  <Button component={Link} to='/parseproedgar' style={styles.parseButton} variant='outlined' size='small' >
-                    Format EDGAR Pro
-                  </Button>
-                </Box>
-              </Box>
-              {/* </Toolbar> */}
+                <ProjectSummary states={states} counties={counties} handleClose={handleClose} />
+            </Dialog>
+            <AppBar>
+              <Toolbar style={{backgroundColor: '#D7EBF8', borderRadius: 3, border: '1px solid grey', padding: '1rem', boxShadow: '0 8px 8px -4px lightgrey'}} >
+                <Welcome logout={logout} auth={auth} />
+                <Button style={{border: '2px solid grey', marginLeft: '1rem', color: '#1976d2', fontWeight: 'bold'}} variant='outlined' onClick={()=>history.push('/states')}>States</Button> 
+                
+                <Button style={{border: '2px solid grey', marginLeft: '1rem', color: '#1976d2', fontWeight: 'bold'}} variant='outlined' onClick={handleOpen}>Project Summary </Button>
+                
+                <Button style={{border: '2px solid grey', marginLeft: '1rem', color: '#1976d2', fontWeight: 'bold'}} variant='outlined' onClick={ (ev) => handleOpenCounties(ev)}>Project Counties ({counties.length}) </Button>
+                <hr></hr>
+                <Link to='/parseaddresses' style={{textDecoration: 'none'}}><Button style={{border: '2px solid grey', marginLeft: '1rem', color: 'darkBlue'}} variant='outlined'>Format Addresses</Button></Link>
+                <Link to='/parseproedgar' style={{textDecoration: 'none'}}><Button style={{border: '2px solid grey', marginLeft: '1rem', color: 'darkBlue'}} variant='outlined'>Format EDGAR Pro</Button></Link>
+              </Toolbar>
           </AppBar>
-        </nav>
+        </nav>  
+        // <nav style={{position: 'static'}}>
+        //   {/* The navbar will show these links after you log in */}
+        //   <AppBar>
+        //   <Dialog onClose={handleClose} open={openCounties}  maxWidth='lg'>
+        //       <ProjectCounties handleClose={handleClose}/>
+        //   </Dialog>
+        //   <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
+        //       <ProjectSummary states={states} counties={counties} handleClose={handleClose} />
+        //   </Dialog>
+        //       {/* <Toolbar style={{backgroundColor, borderRadius: 3, border: '1px solid grey', padding: '1rem', boxShadow: '0 8px 8px -4px lightgrey'}} > */}
+        //       <Box display='flex' justifyContent='space-around' alignContent='center' flexWrap='wrap'>
+        //         <Box display="flex" 
+        //           alignItems='center'
+        //           justifyContent='space-evenly'
+        //           marginLeft='.5rem'
+        //           padding={0}
+        //         >
+        //           <Welcome auth={auth} logout={handleClick} />
+        //           <Button component={Link} to='/states'style={styles.projectButton} size='large' variant='outlined'>
+        //             States
+        //           </Button>
+        //         </Box>
+        //         <Box display='flex' justifyContent='center' alignContent='center'>
+        //           <Box display='flex' flexDirection='column' justifyContent='center'>
+        //             <Button size='small' style={styles.projectButton} variant='outlined' onClick={handleOpen}>Project Summary </Button>
+        //             <Button size='small' style={styles.projectButton} variant='outlined' onClick={ (ev) => handleOpenCounties(ev)}>Project Counties ({counties.length}) </Button>
+        //           </Box>
+        //         </Box>
+        //         <Box display='flex' flexDirection='column' justifyContent='center'>
+        //           <Button component={Link} to='/parseaddresses' style={styles.parseButton} variant='outlined' size='small' >
+        //             Format Addresses
+        //           </Button>
+        //           <Button component={Link} to='/parseproedgar' style={styles.parseButton} variant='outlined' size='small' >
+        //             Format EDGAR Pro
+        //           </Button>
+        //         </Box>
+        //       </Box>
+        //       {/* </Toolbar> */}
+        //   </AppBar>
+        // </nav>
       ) : '' 
       // (
       //   <div>
