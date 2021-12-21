@@ -8,6 +8,9 @@ import EdgarParser from './components/EdgarParser';
 import AddressParser from './components/AddressParser';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import StatesTable from './components/StatesTable';
+import Profile from './components/Profile';
+import Password from './components/Password';
 import {me} from './store'
 
 /**
@@ -26,11 +29,15 @@ class Routes extends Component {
         <Route component={Navbar} path='/'/>
         {isLoggedIn ? (
           <Switch>
-            <Route path="/home" component={Home} />
+            {/* <Route path="/home" component={Home} /> */}
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/profile/password" component={Password} />
+
+            <Route exact path='/states' render={() => <StatesTable /> } />
             <Route exact path='/states/:id' render={() => <CountiesTable /> } />
             <Route component={AddressParser} path='/parseaddresses' />
             <Route component={EdgarParser} path='/parseproedgar' />
-            <Redirect to="/home" />
+            <Redirect to="/states" />
           </Switch>
         ) : (
           <Switch>

@@ -13,7 +13,7 @@ const AuthForm = props => {
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="initials">
-            <small>Initials</small>
+            <small>Username</small>
           </label>
           <input name="initials" type="text" />
         </div>
@@ -43,14 +43,6 @@ const mapLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
-    error: state.auth.error
-  }
-}
-
-const mapSignup = state => {
-  return {
-    name: 'signup',
-    displayName: 'Sign Up',
     error: state.auth.error
   }
 }

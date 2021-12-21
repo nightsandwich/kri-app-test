@@ -6,8 +6,9 @@ import auth from './auth'
 import states from './states'
 import counties from './counties'
 import notes from './notes'
+import users from './users'
 
-const reducer = combineReducers({ auth, states, counties, notes })
+const reducer = combineReducers({ auth, states, counties, notes, users })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
@@ -18,3 +19,4 @@ export * from './auth'
 export * from './states'
 export * from './counties'
 export * from './notes'
+export * from './users'

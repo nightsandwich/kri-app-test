@@ -1,49 +1,75 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Box, Button, Typography, Tooltip } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Box, Button, IconButton, Typography, Tooltip } from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 // import Users from "./Users";
 
-const Welcome = ({firstName, logout}) => {
+const Welcome = ({auth, logout}) => {
   
 
     return (
-        <Box
-        display="flex" 
-        flexDirection='column'
-        // width='auto'
-        maxWidth='lg'
-        // border='1px solid black'
-        alignItems='center'
-        justifyContent='center'
-        // ml='1rem'
-        // mr='1rem'
-      >
-        <Box width='100%'>
-          <Typography variant='subtitle1' color='black'>
-            Welcome {firstName}!
-          </Typography>
+       
+        <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center' marginRight='.5rem'>
+          <Box marginBottom={0}>
+            <Typography>
+              Welcome, {auth.initials}!
+            </Typography>
+          </Box>
+          <Box display='flex' marginTop={0}>
+            <Box>
+              <Tooltip title="Profile">
+                <IconButton
+                  style={{
+                    borderRadius: 4,
+                    alignSelf: 'center',
+                    color: 'white', 
+                    fontWeight: 'bold',
+                  }}
+                  component={Link}
+                  to='/profile'
+                  size='medium'
+                >
+                  <AccountBoxIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+            <Box>
+            <Tooltip title="Log Out">
+                <IconButton
+                  style={{
+                    borderRadius: 4,
+                    alignSelf: 'center',
+                    color: 'white', 
+                    fontWeight: 'bold',
+                  }}
+                  onClick={logout}
+                  size='medium'
+                >
+                  <ExitToAppIcon />
+                </IconButton>
+              </Tooltip>
+              {/* <Tooltip title="Log Out">
+                <Button
+                  style={{
+                    borderRadius: 4,
+                    border: '2px solid grey',
+                    width: '10%',
+                    alignSelf: 'center',
+                    color: '#1976d2', 
+                    fontWeight: 'bold',
+                  }}
+                  onClick={logout}
+                  size='small'
+                  startIcon={<LogoutIcon />}
+                >
+                </Button>
+              </Tooltip> */}
+            </Box>
+          </Box>
         </Box>
-        <Box>
-          <Tooltip title="Log Out">
-            <Button
-              style={{
-                borderRadius: 4,
-                border: '2px solid grey',
-                width: '10%',
-                alignSelf: 'center',
-                color: '#1976d2', 
-                fontWeight: 'bold',
-              }}
-              onClick={logout}
-              size='small'
-              startIcon={<LogoutIcon />}
-            >
-            </Button>
-            </Tooltip>
-        </Box>
-        {/* <Button color='primary' variant='contained' onClick={logout}>TODO: ADD LOGOUT ICON</Button> */}
-      </Box>
     
     
     )

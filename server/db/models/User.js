@@ -26,13 +26,13 @@ const User = db.define('user', {
   initials: {
     type: STRING,
     allowNull: false,
+    unique: true,
     validate: {
       notEmpty: true
     }
   },
   password: {
     type: STRING,
-    unique: true,
     allowNull: false,
     validate: {
       notEmpty: true
@@ -60,7 +60,7 @@ User.prototype.generateToken = function() {
 User.authenticate = async function({ initials, password }){
     const user = await this.findOne({where: { initials }})
     if (!user || !(await user.correctPassword(password))) {
-      const error = Error('Incorrect initials/password');
+      const error = Error('Incorrect username/password');
       error.status = 401;
       throw error;
     }

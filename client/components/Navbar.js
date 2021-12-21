@@ -3,14 +3,15 @@ import { useSelector } from 'react-redux'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
-import { AppBar, Button, Dialog, Toolbar } from "@material-ui/core";
+import { AppBar, Box, Button, Dialog, Toolbar } from "@material-ui/core";
 import ProjectSummary from "./ProjectSummary";
 import { useDispatch } from "react-redux";
 import ProjectCounties from './ProjectCounties';
 import Welcome from './Welcome'
 import { loadCounties, loadStates, logout } from '../store'
+import CircularLoading from './CircularLoading'
 
-const Navbar = ({handleClick, isLoggedIn, firstName, counties, allStates, loadData}) => {
+const Navbar = ({handleClick, isLoggedIn, auth, counties, allStates, loadData}) => {
   const history = useHistory()
   
   const [open, setOpen] = useState(false);
@@ -21,11 +22,11 @@ const Navbar = ({handleClick, isLoggedIn, firstName, counties, allStates, loadDa
   useEffect(() => {
     const load = async() => {
       await loadData()
-      await setIsLoaded(true)
     }
     if (isLoggedIn){
       load()
     }
+    setIsLoaded(true)
   }, [isLoggedIn])
   
   const handleOpenCounties = ev => {
@@ -40,7 +41,7 @@ const Navbar = ({handleClick, isLoggedIn, firstName, counties, allStates, loadDa
     setOpenCounties(false);
   }
 
-  if (!isLoaded) return '...loading'
+  if (!isLoaded) return <CircularLoading />
 
   const statesIds = counties.reduce((accum, county) => {
     !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
@@ -62,15 +63,35 @@ const Navbar = ({handleClick, isLoggedIn, firstName, counties, allStates, loadDa
           <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
               <ProjectSummary states={states} counties={counties} handleClose={handleClose} />
           </Dialog>
-              <Toolbar style={{backgroundColor, borderRadius: 3, border: '1px solid grey', padding: '1rem', boxShadow: '0 8px 8px -4px lightgrey'}} >
-                <Welcome firstName={firstName} logout={handleClick} />
-                <Link to='/home' style={{textDecoration: 'none'}}><Button style={styles.projectButton} variant='outlined'>States</Button></Link>
-                <Button style={styles.projectButton} variant='outlined' onClick={handleOpen}>Project Summary </Button>
-                <Button style={styles.projectButton} variant='outlined' onClick={ (ev) => handleOpenCounties(ev)}>Project Counties ({counties.length}) </Button>
-                <hr></hr>
-                <Link to='/parseaddresses' style={{textDecoration: 'none'}}><Button style={styles.parseButton} variant='outlined'>Format Addresses</Button></Link>
-                <Link to='/parseproedgar' style={{textDecoration: 'none'}}><Button style={styles.parseButton} variant='outlined'>Format EDGAR Pro</Button></Link>
-              </Toolbar>
+              {/* <Toolbar style={{backgroundColor, borderRadius: 3, border: '1px solid grey', padding: '1rem', boxShadow: '0 8px 8px -4px lightgrey'}} > */}
+              <Box display='flex' justifyContent='space-around' alignContent='center' flexWrap='wrap'>
+                <Box display="flex" 
+                  alignItems='center'
+                  justifyContent='space-evenly'
+                  marginLeft='.5rem'
+                  padding={0}
+                >
+                  <Welcome auth={auth} logout={handleClick} />
+                  <Button component={Link} to='/states'style={styles.projectButton} size='large' variant='outlined'>
+                    States
+                  </Button>
+                </Box>
+                <Box display='flex' justifyContent='center' alignContent='center'>
+                  <Box display='flex' flexDirection='column' justifyContent='center'>
+                    <Button size='small' style={styles.projectButton} variant='outlined' onClick={handleOpen}>Project Summary </Button>
+                    <Button size='small' style={styles.projectButton} variant='outlined' onClick={ (ev) => handleOpenCounties(ev)}>Project Counties ({counties.length}) </Button>
+                  </Box>
+                </Box>
+                <Box display='flex' flexDirection='column' justifyContent='center'>
+                  <Button component={Link} to='/parseaddresses' style={styles.parseButton} variant='outlined' size='small' >
+                    Format Addresses
+                  </Button>
+                  <Button component={Link} to='/parseproedgar' style={styles.parseButton} variant='outlined' size='small' >
+                    Format EDGAR Pro
+                  </Button>
+                </Box>
+              </Box>
+              {/* </Toolbar> */}
           </AppBar>
         </nav>
       ) : '' 
@@ -87,20 +108,20 @@ const Navbar = ({handleClick, isLoggedIn, firstName, counties, allStates, loadDa
   </div>
   )}
 
-const parseColor = 'darkBlue';
-const dataColor = '#1976d2';
+const parseColor = 'black';
+const dataColor = 'white';
 const backgroundColor = '#D7EBF8'
 
 const styles = {
   projectButton: {
-    border: '2px solid grey',
-    marginLeft: '1rem',
+    border: '1px solid black',
+    marginBottom: '.25rem',
     color: dataColor,
     fontWeight: 'bold'
   },
   parseButton: {
-    border: '2px solid grey', 
-    marginLeft: '1rem', 
+    border: '1px solid white', 
+    marginBottom: '.25rem', 
     color: parseColor
   }
 }
@@ -110,7 +131,7 @@ const styles = {
 const mapState = state => {
   return {
     isLoggedIn: !!state.auth.id,
-    firstName: state.auth.firstName,
+    auth: state.auth,
     counties: state.counties.filter(county => county.inProject),
     allStates: state.states
   }
