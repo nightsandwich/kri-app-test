@@ -63,7 +63,7 @@ export const editCounty = (county) => {
 
     if (token) {
         return async(dispatch) => {
-            const updated = (await axios.put(`/api/counties/${county.id}`, county, {
+            const updated = (await axios.put(`/api/counties/`, county, {
                 headers: {
                     authorization: token
                 }

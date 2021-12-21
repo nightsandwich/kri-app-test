@@ -7,105 +7,45 @@ module.exports = router
 
 router.get('/', isLoggedIn, async(req, res, next)=> { 
   try {
-    res.send(await County.findAll({
-      include: [
-        {
-          model: State,
-          include: Note
-        },
-        {
-          model: Note, 
-                  include: [
-                      {
-                        model: User,
-                        attributes: ['id', 'initials']
-                      }
-                    ]
-        }
-      ]
-    }));
+    res.send(await County.findAll());
   }
   catch(ex){
     next(ex);
   }
 });
   
-  router.get('/:id', isLoggedIn, async(req, res, next)=> {
-    try {
-      res.send(await County.findByPk(req.params.id, {
-        include: [
-          {
-            model: State,
-            include: Note
-          },
-          {
-            model: Note,
-            include: User
-          }
-        ]
-      }));
-    }
-    catch(ex){
-      next(ex);
-    }
-  });
-  
-  router.put('/:id', isLoggedIn, async(req, res, next)=> {
-    const {name, summary, id, inProject} = req.body;
-    // console.log(req.body)
-    try {
-      const _county = (await County.findByPk(id));
-      await _county.update({name, summary, inProject});
-      const county = await County.findByPk(id, {
-        include: [
-          {
-            model: State,
-            include: Note
-          },
-          {
-            model: Note,
-            include: User
-          }
-        ]
-      })
-      res.send(county);
-    }
-    catch(ex){
-      next(ex);
-    }
-  });
-  
-  router.post('/', isLoggedIn, async(req, res, next)=> {
-    try {
-      
-      const _county = (await County.create(req.body));
-      const county = await County.findByPk(_county.id, {
-        include: [
-          {
-            model: State,
-            include: Note
-          },
-          {
-            model: Note,
-            include: User
-          }
-        ]
-      })
-      res.status(201).send(county);
-    }
-    catch(ex){
-      next(ex);
-    }
-  });
+router.put('/', isLoggedIn, async(req, res, next)=> {
+  const {name, summary, id, inProject} = req.body;
+  try {
+    let county = (await County.findByPk(id));
+    await county.update({...county, name, summary, inProject});
+    county = await County.findByPk(id)
+    res.send(county);
+  }
+  catch(ex){
+    next(ex);
+  }
+});
 
-  router.delete('/:id', isLoggedIn, async(req, res, next)=> {
-    // console.log(req.params.id)
-    try {
-      const county = (await County.findByPk(req.params.id));
-      await county.destroy();
-      res.sendStatus(201)
-    }
-    catch(ex){
-      next(ex);
-    }
-  });
+router.post('/', isLoggedIn, async(req, res, next)=> {
+  try {
+    const { name, summary, stateId } = req.body;
+    let county = (await County.create({name, summary, stateId}));
+    county = await County.findByPk(county.id)
+    res.status(201).send(county);
+  }
+  catch(ex){
+    next(ex);
+  }
+});
+
+router.delete('/:id', isLoggedIn, async(req, res, next)=> {
+  try {
+    const county = (await County.findByPk(req.params.id));
+    await county.destroy();
+    res.sendStatus(201)
+  }
+  catch(ex){
+    next(ex);
+  }
+});

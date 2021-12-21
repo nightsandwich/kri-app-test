@@ -37,7 +37,7 @@ export const editState = (state) => {
     const token = window.localStorage.getItem(TOKEN)
     if (token){
         return async(dispatch) => {
-            const updated = (await axios.put(`/api/states/${state.id}`, state, {
+            const updated = (await axios.put(`/api/states/`, state, {
                 headers: {
                     authorization: token
                 }

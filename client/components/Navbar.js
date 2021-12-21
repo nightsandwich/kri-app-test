@@ -50,7 +50,7 @@ const Navbar = ({handleClick, isLoggedIn, firstName, counties, allStates, loadDa
 
   return (
   <div>
-    <h1>KRI APP</h1>
+    <h1>KRI RESEARCH TRACKER</h1>
     <nav>
       {isLoggedIn ? (
         <nav style={{position: 'static'}}>
@@ -62,14 +62,14 @@ const Navbar = ({handleClick, isLoggedIn, firstName, counties, allStates, loadDa
           <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
               <ProjectSummary states={states} counties={counties} handleClose={handleClose} />
           </Dialog>
-              <Toolbar style={{backgroundColor: '#D7EBF8', borderRadius: 3, border: '1px solid grey', padding: '1rem', boxShadow: '0 8px 8px -4px lightgrey'}} >
+              <Toolbar style={{backgroundColor, borderRadius: 3, border: '1px solid grey', padding: '1rem', boxShadow: '0 8px 8px -4px lightgrey'}} >
                 <Welcome firstName={firstName} logout={handleClick} />
-                <Link to='/home' style={{textDecoration: 'none'}}><Button style={{border: '2px solid grey',fontWeight: 'bold', marginLeft: '1rem', color: '#1976d2'}} variant='outlined'>States</Button></Link>
-                <Button style={{border: '2px solid grey', marginLeft: '1rem', color: '#1976d2', fontWeight: 'bold'}} variant='outlined' onClick={handleOpen}>Project Summary </Button>
-                <Button style={{border: '2px solid grey', marginLeft: '1rem', color: '#1976d2', fontWeight: 'bold'}} variant='outlined' onClick={ (ev) => handleOpenCounties(ev)}>Project Counties ({counties.length}) </Button>
+                <Link to='/home' style={{textDecoration: 'none'}}><Button style={styles.projectButton} variant='outlined'>States</Button></Link>
+                <Button style={styles.projectButton} variant='outlined' onClick={handleOpen}>Project Summary </Button>
+                <Button style={styles.projectButton} variant='outlined' onClick={ (ev) => handleOpenCounties(ev)}>Project Counties ({counties.length}) </Button>
                 <hr></hr>
-                <Link to='/parseaddresses' style={{textDecoration: 'none'}}><Button style={{border: '2px solid grey', marginLeft: '1rem', color: 'darkBlue'}} variant='outlined'>Format Addresses</Button></Link>
-                <Link to='/parseproedgar' style={{textDecoration: 'none'}}><Button style={{border: '2px solid grey', marginLeft: '1rem', color: 'darkBlue'}} variant='outlined'>Format EDGAR Pro</Button></Link>
+                <Link to='/parseaddresses' style={{textDecoration: 'none'}}><Button style={styles.parseButton} variant='outlined'>Format Addresses</Button></Link>
+                <Link to='/parseproedgar' style={{textDecoration: 'none'}}><Button style={styles.parseButton} variant='outlined'>Format EDGAR Pro</Button></Link>
               </Toolbar>
           </AppBar>
         </nav>
@@ -87,6 +87,23 @@ const Navbar = ({handleClick, isLoggedIn, firstName, counties, allStates, loadDa
   </div>
   )}
 
+const parseColor = 'darkBlue';
+const dataColor = '#1976d2';
+const backgroundColor = '#D7EBF8'
+
+const styles = {
+  projectButton: {
+    border: '2px solid grey',
+    marginLeft: '1rem',
+    color: dataColor,
+    fontWeight: 'bold'
+  },
+  parseButton: {
+    border: '2px solid grey', 
+    marginLeft: '1rem', 
+    color: parseColor
+  }
+}
 /**
  * CONTAINER
  */
@@ -112,3 +129,5 @@ const mapDispatch = dispatch => {
 }
 
 export default connect(mapState, mapDispatch)(Navbar)
+
+

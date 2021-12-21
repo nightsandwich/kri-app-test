@@ -37,21 +37,27 @@ const ProjectSummary = ({ states, counties, handleClose}) => {
     
     const findCountyNotes = (state) => {
         return [...counties.filter(county => county.stateId === state.id).map(county => (
-            notes.filter(note => note.countyId === county.id).length === 0 ? [ {countyName: `-${county.name}-`, summary: county.summary, stateName: state.name}, {
-                stateName: state.name,
+            notes.filter(note => note.countyId === county.id).length === 0 ? 
+            [ {
+                countyName: `-${county.name}-`, 
+                summary: county.summary, 
+                stateName: ''
+                }, 
+                {
+                stateName: '',
                 countyName: county.name,
-                summary: '',
                 website: '-no links-',
                 link: null,
-                note: '',
-                paid: '',
-                password: ''
-            }] : [{countyName: `-${county.name}-`, stateName: state.name, summary: county.summary},
-            ...notes.filter(note => note.countyId === county.id).map(note => (
+            }] : 
+            [{
+                countyName: `-${county.name}-`, 
+                stateName: '', 
+                summary: county.summary
+                },
+                ...notes.filter(note => note.countyId === county.id).map(note => (
                 {
-                    stateName: state.name,
+                    stateName: '',
                     countyName: county.name,
-                    summary: '',
                     website: note.title,
                     link: note.link,
                     note: note.text,
@@ -61,30 +67,6 @@ const ProjectSummary = ({ states, counties, handleClose}) => {
             ))]
         ))]
     }
-    // const findCountyNotes = (state) => {
-    //     return [...counties.filter(county => county.stateId === state.id).map(county => (
-    //         county.notes.length === 0 ? [ {countyName: county.name + ' Summary:', note: county.summary}, {
-    //             stateName: county.state.name,
-    //             countyName: county.name,
-    //             website: '-no links-',
-    //             link: null,
-    //             note: '',
-    //             paid: '',
-    //             password: ''
-    //         }] : [{countyName: county.name + " Summary:", note: county.summary},
-    //         ...county.notes.map(note => (
-    //             {
-    //                 stateName: county.state.name,
-    //                 countyName: county.name,
-    //                 website: note.title,
-    //                 link: note.link,
-    //                 note: note.text,
-    //                 paid: note.paid,
-    //                 password: note.password
-    //             }
-    //         ))]
-    //     ))]
-    // }
     
     const findStateNotes = (state) => {
         return (
@@ -97,12 +79,8 @@ const ProjectSummary = ({ states, counties, handleClose}) => {
                     ,{
                     stateName: state.name,
                     countyName: '',
-                    summary: '',
                     website: '-no links-',
                     link: null,
-                    note: '',
-                    paid: '',
-                    password: ''
                 }]
             :
             [{
@@ -112,7 +90,6 @@ const ProjectSummary = ({ states, counties, handleClose}) => {
                 {
                     stateName: state.name,
                     countyName: null,
-                    summary: '',
                     website: note.title,
                     link: note.link,
                     note: note.text,
@@ -122,48 +99,10 @@ const ProjectSummary = ({ states, counties, handleClose}) => {
             ))]
         )
     }
-    // const findStateNotes = (state) => {
-    //     return (
-    //         state.notes.length === 0 ?
-    //             [
-    //                 {
-    //                     stateName: state.name + ' Summary:',
-    //                     note: state.summary || ''
-    //                 },
-    //                 ,{
-    //                 stateName: state.name,
-    //                 countyName: '',
-    //                 website: '-no links-',
-    //                 link: null,
-    //                 note: '',
-    //                 paid: '',
-    //                 password: ''
-    //             }]
-    //         :
-    //         [{
-    //             stateName: state.name + ' Summary:',
-    //             note: state.summary
-    //         },...state.notes.map(note => (
-    //             {
-    //                 stateName: state.name,
-    //                 countyName: null,
-    //                 website: note.title,
-    //                 link: note.link,
-    //                 note: note.text,
-    //                 paid: note.paid,
-    //                 password: note.password
-    //             }
-    //         ))]
-    //     )
-    // }
     
     let notesToDisplay = states.map(state => {
-        // console.log(findStateNotes(state))
         return [ ...findStateNotes(state).filter(note => note.stateName), ...findCountyNotes(state)]
     }).flat(4);
-    // let notes = states.map(state => {
-    //     return [ ...findStateNotes(state).filter(note => note.stateName), ...findCountyNotes(state)]
-    // }).flat(4);
     
     const columns = [
         { title: 'State', field: 'stateName', render: (rowData) => (

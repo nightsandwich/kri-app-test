@@ -60,7 +60,7 @@ export const updateNote = (note) => {
     const token = window.localStorage.getItem(TOKEN)
     if (token){
         return async(dispatch) => {
-            const updated = (await axios.put(`/api/notes/${note.id}`, note, {
+            const updated = (await axios.put(`/api/notes/`, note, {
                 headers: {
                     authorization: token
                 }

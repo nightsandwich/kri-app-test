@@ -11,6 +11,7 @@ const ProjectCounties = ({handleClose}) => {
     const dispatch = useDispatch();
     let counties = useSelector(({counties}) => counties.filter(county => county.inProject));
     counties = counties.sort((a,b) => a.name < b.name ? -1 : 1)
+    const states = useSelector(({states}) => states)
 
     const clearNotes = () => {
         counties.forEach(county => dispatch(editCounty({...county, inProject: false})));
@@ -24,6 +25,7 @@ const ProjectCounties = ({handleClose}) => {
                 </Typography>
                 <hr></hr>
                     {counties.map(county => {
+                        const abbreviation = states.find(state => county.stateId === state.id).abbreviation
                         return (
                             <div key={county.id} style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <div>
@@ -35,7 +37,7 @@ const ProjectCounties = ({handleClose}) => {
                                     </Typography>
                                 </div>    
                                 <div>
-                                    <Typography key={county.id} style={{marginRight: '2rem'}} color='black' variant='subtitle2'>({county.state.abbreviation}) 
+                                    <Typography key={county.id} style={{marginRight: '2rem'}} color='black' variant='subtitle2'>({abbreviation}) 
                                     </Typography>
                                 </div>
                             </div>      
