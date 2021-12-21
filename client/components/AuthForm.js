@@ -12,10 +12,10 @@ const AuthForm = props => {
     <div>
       <form onSubmit={handleSubmit} name={name}>
         <div>
-          <label htmlFor="username">
-            <small>Username</small>
+          <label htmlFor="initials">
+            <small>Initials</small>
           </label>
-          <input name="username" type="text" />
+          <input name="initials" type="text" />
         </div>
         <div>
           <label htmlFor="password">
@@ -60,12 +60,12 @@ const mapDispatch = dispatch => {
     handleSubmit(evt) {
       evt.preventDefault()
       const formName = evt.target.name
-      const username = evt.target.username.value
+      const initials = evt.target.initials.value
       const password = evt.target.password.value
-      dispatch(authenticate(username, password, formName))
+      dispatch(authenticate(initials, password, formName))
     }
   }
 }
 
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+// export const Signup = connect(mapSignup, mapDispatch)(AuthForm)

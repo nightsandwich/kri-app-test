@@ -1,8 +1,13 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import { Login, Signup } from './components/AuthForm';
+import { Login } from './components/AuthForm';
 import Home from './components/Home';
+import CountiesTable from './components/CountiesTable';
+import EdgarParser from './components/EdgarParser';
+import AddressParser from './components/AddressParser';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import {me} from './store'
 
 /**
@@ -18,18 +23,23 @@ class Routes extends Component {
 
     return (
       <div>
+        <Route component={Navbar} path='/'/>
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
+            <Route exact path='/states/:id' render={() => <CountiesTable /> } />
+            <Route component={AddressParser} path='/parseaddresses' />
+            <Route component={EdgarParser} path='/parseproedgar' />
             <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
             <Route path='/' exact component={ Login } />
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            {/* <Route path="/signup" component={Signup} /> */}
           </Switch>
         )}
+        <Route component={Footer} path='/'/>
       </div>
     )
   }
