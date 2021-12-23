@@ -185,8 +185,8 @@ const ProjectSummary = ({ states, counties, handleClose}) => {
             options={{
                 filtering: false,
                 grouping: true,
-                pageSize: 10,
-                pageSizeOptions: [10, 20, 30]
+                pageSize: 100,
+                pageSizeOptions: [100, 20]
             }}
             components={{
                 Toolbar: props => (
@@ -199,18 +199,6 @@ const ProjectSummary = ({ states, counties, handleClose}) => {
                 margin: '1rem',
                 fontFamily: "Roboto, Helvetica, Arial, sansSerif"
             }}
-            // detailPanel={rowData => {
-            //     return (
-            //         <MaterialTable 
-            //             title='Summaries'
-            //             columns={[
-            //                 { title: 'State', field: 'stateName' },
-            //                 { title: "Summary", field: 'stateSummary'}
-            //             ]}
-            //             data={rowData.summaryDetail}
-            //         />
-            //     )
-            // }}
         />
         </Box>
     )
