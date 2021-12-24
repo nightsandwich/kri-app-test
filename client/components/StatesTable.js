@@ -121,23 +121,23 @@ const StatesTable = () => {
                   {openExpand ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
               </TableCell>
-                <TableCell component="th" scope="row">
-                  <Tooltip title='Edit State Summary'>
-                    <IconButton
-                      aria-label="edit state"
-                      size="small"
-                      sx={{color: '#1976d2'}}
-                      onClick={() => handleOpen(row.id, 'state', 'edit')}
-                    >
-                      <Edit />
-                    </IconButton>
-                  </Tooltip>
-                    <a href={`/states/${row.id}`}>
-                      {row.name}
-                    </a>
-                </TableCell>
-              <TableCell align="left">{row.summary}</TableCell>
-              <TableCell align="center">
+              <TableCell align='left' sx={{width: '40%'}}>
+                <Tooltip title='Edit State Summary'>
+                  <IconButton
+                    aria-label="edit state"
+                    size="small"
+                    sx={{color: '#1976d2'}}
+                    onClick={() => handleOpen(row.id, 'state', 'edit')}
+                  >
+                    <Edit />
+                  </IconButton>
+                </Tooltip>
+                  <a href={`/states/${row.id}`}>
+                    {row.name}
+                  </a>
+              </TableCell>
+              <TableCell align="left" sx={{width: '40%'}}>{row.summary}</TableCell>
+              <TableCell align="center" >
                 <Tooltip title='Add Statewide Link'>
                   <IconButton
                       aria-label="add link"
@@ -150,7 +150,7 @@ const StatesTable = () => {
                 </Tooltip>
                 {row.notes}
               </TableCell>
-              <TableCell align="center"
+              <TableCell align="center" 
               >
                 {/* <Tooltip title={`Go to ${row.name}'s Counties`}>
                   <IconButton
@@ -262,17 +262,17 @@ const StatesTable = () => {
           <SummaryForm stateId={stateId} countyId={countyId} action={action} handleClose={handleClose} />
       </Dialog>
       <TableContainer component={Paper} sx={{mt: 10}}>
-      <Table aria-label="collapsible table">
+      <Table aria-label="collapsible table" minWidth='375px'>
         <TableHead>
           <TableRow>
             <TableCell sx={{fontWeight: 'bold', fontSize: '1rem'}} align='center' colSpan={5}>ALL STATES</TableCell>
           </TableRow>
           <TableRow>
             <TableCell />
-            <TableCell align='center' sx={{fontWeight: 'bold'}}>State</TableCell>
-            <TableCell align='left' sx={{fontWeight: 'bold'}}>Summary</TableCell>
-            <TableCell align='center' sx={{fontWeight: 'bold'}}>Number of Links</TableCell>
-            <TableCell align='center' sx={{fontWeight: 'bold'}}>Number of Counties</TableCell>
+            <TableCell align='left' sx={{fontWeight: 'bold', width: '20%'}}>State</TableCell>
+            <TableCell align='left' sx={{fontWeight: 'bold', width: '60%'}}>Summary</TableCell>
+            <TableCell align='center' sx={{fontWeight: 'bold', width: '10%'}}>Number of Links</TableCell>
+            <TableCell align='center' sx={{fontWeight: 'bold', width: '10%'}}>Number of Counties</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

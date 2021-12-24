@@ -1,13 +1,15 @@
 import React from 'react'
 
-import Navbar from './components/Navbar'
 import Routes from './Routes'
+import Footer from './components/Footer';
+import Header from './components/Header';
 
 const App = () => {
   return (
-    <div>
-      {/* <Navbar /> */}
+    <div style={{overflow: 'auto'}}>
+      <Header />
       <Routes />
+      <Footer />
     </div>
   )
 }

@@ -1,17 +1,26 @@
-import React from 'react';
-import Typography from '@mui/material/Typography';
+import React from 'react'
 
+////////////////// MATERIAL UI ////////////////
+import { Box, Grid, IconButton, Typography, Link } from '@mui/material';
+import { GitHub as GitHubIcon, AccountCircle as AccountCircleIcon } from '@mui/icons-material';
 
-export default function Footer() {
-
-  return (
-    <footer className='footer' style={{backgroundColor: '#D7EBF8', borderRadius: 3, border: '1px dotted grey',  height: 'auto', position: 'fixed', width: '100%', bottom: '0',  boxShadow: '0 8px 8px -2px lightgrey'}}>
-        <Typography variant="subtitle1" style={{color: 'darkslategrey', textAlign: 'left', padding: '1rem'}}>
-          Made by Corinne ©2021 
-          {/* Made by Corinne from <a href='http://www.fullstackacademy.com' style={{textDecoration: 'underline', color: 'red'}}>Fullstack Academy</a> © 2021  */}
-        </Typography>
-    </footer>
-      
-      
-  );
+const Footer = () => {
+    return (
+        <footer className='footer' style={{backgroundColor: '#078BEC',  height: 'auto', position: 'fixed', width: '100%', bottom: '0'}}>
+            <Box display='flex' alignItems='center' sx={{ml: 0}} >
+                <Typography variant="subtitle1" sx={{color: 'text.secondary', textAlign: 'left', ml: '1rem'}}>
+                    Made by 
+                </Typography>
+                <IconButton size="small" href="https://github.com/nightsandwich" target="_blank" sx={{color: 'text.secondary', fontSize: 'inherit'}}>
+                    <AccountCircleIcon />
+                    {'Corinne  '}
+                </IconButton>
+                <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>
+                    © {new Date().getFullYear()}
+                </Typography>
+            </Box>
+        </footer>
+    )
 }
+
+export default Footer

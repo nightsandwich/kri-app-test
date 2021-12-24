@@ -128,7 +128,7 @@ const CountiesTable = () => {
                   {openExpand ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
               </TableCell>
-                <TableCell component="th" scope="row">
+                <TableCell align='left' sx={{width: '40%'}}>
                     
                     
                   <Tooltip title='Edit County'>
@@ -153,8 +153,8 @@ const CountiesTable = () => {
                   </Tooltip>
                   {row.name}
                 </TableCell>
-              <TableCell align="center">{row.summary}</TableCell>
-              <TableCell align="center">
+              <TableCell align="left" sx={{width: '40%'}} >{row.summary}</TableCell>
+              <TableCell align="center" >
                 <Tooltip title='Add County Link'>
                   <IconButton
                       aria-label="add link"
@@ -297,18 +297,18 @@ const CountiesTable = () => {
             <SummaryForm stateId={stateId}  countyId={countyId} action={action} handleClose={handleClose} />
         </Dialog>
         <TableContainer component={Paper} sx={{mt: 10}}>
-            <Table aria-label="collapsible table" size='small'>
-                <TableHead>
-                <TableRow>
-                    <TableCell sx={{fontWeight: 'bold', fontSize: '1rem'}} align='center' colSpan={5}>{title}</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell />
-                    <TableCell align='center' sx={{fontWeight: 'bold'}} >County</TableCell>
-                    <TableCell sx={{fontWeight: 'bold'}} align="left">Summary</TableCell>
-                    <TableCell sx={{fontWeight: 'bold'}} align="center">Number of Links</TableCell>
-                    <TableCell sx={{fontWeight: 'bold'}} align="center">Project</TableCell>
-                </TableRow>
+            <Table aria-label="collapsible table" minWidth='375px' >
+                <TableHead sx={{position:'sticky'}}>
+                  <TableRow>
+                      <TableCell sx={{fontWeight: 'bold', fontSize: '1rem', position:'sticky'}} align='center' colSpan={5}>{title}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                      <TableCell />
+                      <TableCell align='left' sx={{fontWeight: 'bold', position:'sticky'}} >County</TableCell>
+                      <TableCell sx={{fontWeight: 'bold'}} align="left">Summary</TableCell>
+                      <TableCell sx={{fontWeight: 'bold'}} align="center">Number of Links</TableCell>
+                      <TableCell sx={{fontWeight: 'bold'}} align="center">In Project</TableCell>
+                  </TableRow>
                 </TableHead>
                 <TableBody>
                 {rows.map((row) => (

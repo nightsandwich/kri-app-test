@@ -7,11 +7,10 @@ import CountiesTable from './components/CountiesTable';
 import EdgarParser from './components/EdgarParser';
 import AddressParser from './components/AddressParser';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import StatesTable from './components/StatesTable';
 import Profile from './components/Profile';
 import Password from './components/Password';
-import Header from './components/Header';
+
 import {me, loadNotes, loadCounties, loadStates} from './store'
 
 /**
@@ -33,7 +32,7 @@ class Routes extends Component {
         {/* <Route component={Navbar} path='/'/> */}
         {isLoggedIn ? (
           <>
-            <Route component={Header} path='/'/>
+            {/* <Route component={Header} path='/'/> */}
           <Switch>
             {/* <Route path="/home" component={Home} /> */}
             <Route exact path="/profile" component={Profile} />
@@ -53,7 +52,6 @@ class Routes extends Component {
             {/* <Route path="/signup" component={Signup} /> */}
           </Switch>
         )}
-        <Route component={Footer} path='/'/>
       </div>
     )
   }
