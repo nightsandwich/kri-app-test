@@ -10,10 +10,12 @@
   "scripts": {
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
-    "start": "node server && npm run build",
+    "start": "npm run seed && node server",
+    "seed": "node ./script/seed.js",
     "start:dev": "JWT=shhh nodemon server --ignore dist/ --ignore src/ & npm run build:dev"
   },
-  "author": "Fullstack Academy of Code",
+  "author": "Corinne",
+  "keywords": [],
   "license": "MIT",
   "dependencies": {
     "axios": "^0.24.0",
