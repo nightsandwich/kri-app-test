@@ -121,7 +121,7 @@ const StatesTable = () => {
                   {openExpand ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
               </TableCell>
-              <TableCell align='left' sx={{width: '40%'}}>
+              <TableCell align='left' sx={{width: '30%'}}>
                 <Tooltip title='Edit State Summary'>
                   <IconButton
                     aria-label="edit state"

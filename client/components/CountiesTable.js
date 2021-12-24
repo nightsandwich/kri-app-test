@@ -128,7 +128,7 @@ const CountiesTable = () => {
                   {openExpand ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
               </TableCell>
-                <TableCell align='left' sx={{width: '40%'}}>
+                <TableCell align='left' sx={{width: '30%'}}>
                     
                     
                   <Tooltip title='Edit County'>
