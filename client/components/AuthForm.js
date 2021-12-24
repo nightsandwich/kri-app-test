@@ -65,7 +65,7 @@ const AuthForm = props => {
                     variant='filled'
                     />
               <Grid container justify='center'>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} >
                   <Button
                       type="submit"
                       fullWidth
