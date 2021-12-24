@@ -191,22 +191,26 @@ const StatesTable = () => {
                         {row.notesDetail.map((notesDetail) => (
                           <TableRow key={notesDetail.id}>
                             <TableCell component="th" scope="row">
-                              <IconButton
-                                aria-label="edit link"
-                                size="small"
-                                sx={{color: '#1976d2'}}
-                                onClick={() => handleOpen(notesDetail, 'note', 'edit')}
-                              >
-                                <Edit />
-                              </IconButton>
-                              <IconButton
-                                aria-label="delete link"
-                                size="small"
-                                sx={{color: 'red'}}
-                                onClick={() => dispatch(deleteNote(notesDetail.id))}
-                              >
-                                <Delete />
-                              </IconButton>
+                              <Tooltip title='Edit Link'>
+                                <IconButton
+                                  aria-label="edit link"
+                                  size="small"
+                                  sx={{color: '#1976d2'}}
+                                  onClick={() => handleOpen(notesDetail, 'note', 'edit')}
+                                >
+                                  <Edit />
+                                </IconButton>
+                              </Tooltip>
+                              <Tooltip title='Delete Link'>
+                                <IconButton
+                                  aria-label="delete link"
+                                  size="small"
+                                  sx={{color: 'red'}}
+                                  onClick={() => dispatch(deleteNote(notesDetail.id))}
+                                >
+                                  <Delete />
+                                </IconButton>
+                              </Tooltip>
                             </TableCell>
                             <TableCell>
                               <a href={notesDetail.link}>
