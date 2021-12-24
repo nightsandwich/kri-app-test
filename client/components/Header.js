@@ -273,6 +273,7 @@ export default function Header() {
       );
     };
     return (
+     
         <header>
           <Dialog onClose={handleClose} open={openCounties}  maxWidth='lg'>
               <ProjectCounties handleClose={handleClose}/>

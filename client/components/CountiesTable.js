@@ -167,20 +167,22 @@ const CountiesTable = () => {
                 </Tooltip>
                 {row.notes}
               </TableCell>
-              <TableCell align="center"
+              <TableCell align="center" sx={{width: '20%'}}
               >
                 <Tooltip title='Add to Project'>
                   <IconButton
                     aria-label="add county to project"
                     size="small"
-                    sx={{color: '#F1B501'}}
-                    onClick={() => dispatch(editCounty({id: row.id, inProject: true}))}
+                    sx={{color: row.inProject ? '#F1B501' : 'grey'}}
+                    onClick={() => {
+                      dispatch(editCounty({id: row.id, inProject: !row.inProject}))}
+                    }
                   >
                     <CreateNewFolderIcon />
                   </IconButton>
                 </Tooltip>
                 
-                    <Checkbox checked={row.inProject} disabled/>
+                    {/* <Checkbox checked={row.inProject} disabled/> */}
                 
               </TableCell>
             </TableRow>

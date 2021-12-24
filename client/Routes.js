@@ -6,7 +6,7 @@ import Home from './components/Home';
 import CountiesTable from './components/CountiesTable';
 import EdgarParser from './components/EdgarParser';
 import AddressParser from './components/AddressParser';
-import Navbar from './components/Navbar';
+import Header from './components/Header';
 import StatesTable from './components/StatesTable';
 import Profile from './components/Profile';
 import Password from './components/Password';
@@ -32,7 +32,7 @@ class Routes extends Component {
         {/* <Route component={Navbar} path='/'/> */}
         {isLoggedIn ? (
           <>
-            {/* <Route component={Header} path='/'/> */}
+            <Route component={Header} path='/'/>
           <Switch>
             {/* <Route path="/home" component={Home} /> */}
             <Route exact path="/profile" component={Profile} />
