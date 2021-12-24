@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from "react-router-dom";
-import {IconButton, MenuItem, Drawer, Box, Dialog, Toolbar, Tooltip, Button, Typography, AppBar} from '@mui/material';
+import {IconButton, MenuItem, Drawer, Box, Dialog, Toolbar, Tooltip, Button, Typography, AppBar, Paper} from '@mui/material';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
 import { makeStyles } from "@mui/styles";
 import { loadCounties, loadStates, logout, loadNotes } from '../store'
@@ -12,7 +12,7 @@ import ProjectCounties from './ProjectCounties';
 import CircularLoading from './CircularLoading'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function Header() {
   const useStyles = makeStyles(() => ({
@@ -143,10 +143,20 @@ export default function Header() {
     const statesInSummary = allStates.filter(state => statesIds.includes(state.id))
 
     const kriLogo = (
-      <Typography variant='h6' component='h1' className={logo}>
+      <>
+      <Typography variant='h6' component='h1'  className={logo}>
+      {/* <SearchIcon sx={{color: 'black'}} /> */}
         <FindInPageIcon />
-        KRI
+          KRI
       </Typography>
+        {/* <Paper variant="outlined" backgroundColor='#078BEC'> */}
+        {/* <Paper height='25px' >
+          <img src="favicon-32x32.png" />
+        </Paper>
+        <Typography variant='h6'  className={logo}>
+          KRI
+        </Typography> */}
+      </>
     )
     
     const getMenuButtons = () => {
