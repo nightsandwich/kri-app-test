@@ -123,11 +123,13 @@ const CountiesTable = () => {
                 <IconButton
                   aria-label="expand row"
                   size="small"
+                  disabled={row.notes === 0}
                   onClick={() => setOpenExpand(!openExpand)}
                 >
                   {openExpand ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
               </TableCell>
+              
                 <TableCell align='left' sx={{width: '30%'}}>
                     
                     
@@ -154,7 +156,7 @@ const CountiesTable = () => {
                   {row.name}
                 </TableCell>
               <TableCell align="left" sx={{width: '40%'}} >{row.summary}</TableCell>
-              <TableCell align="center" >
+              <TableCell align="center" sx={{width: '15%'}}>
                 <Tooltip title='Add County Link'>
                   <IconButton
                       aria-label="add link"
@@ -167,7 +169,7 @@ const CountiesTable = () => {
                 </Tooltip>
                 {row.notes}
               </TableCell>
-              <TableCell align="center" sx={{width: '20%'}}
+              <TableCell align="center" 
               >
                 <Tooltip title='Add to Project'>
                   <IconButton
@@ -189,14 +191,15 @@ const CountiesTable = () => {
             <TableRow>
               <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                 <Collapse in={openExpand} timeout="auto" unmountOnExit>
-                  <Box sx={{ margin: 1 }} textAlign={'center'}>
+                  <Box sx={{ margin: 1, backgroundColor: '#F8F7ED', borderRadius: '7px' }} textAlign={'center'}>
                     <Typography variant="h6" gutterBottom component="div">
                       Research Links
                     </Typography>
-                    <Table size="small" aria-label="research-links">
+                    <Table size="small" aria-label="research-links" >
                       <TableHead>
                         <TableRow>
-                          <TableCell sx={{fontWeight: 'bold'}}>
+                        <TableCell/>
+                          <TableCell align='left' sx={{fontWeight: 'bold'}}>
                             Website
                           </TableCell>
                           <TableCell sx={{fontWeight: 'bold'}}
@@ -210,42 +213,44 @@ const CountiesTable = () => {
                       <TableBody>
                         {row.notesDetail.map((notesDetail) => (
                           <TableRow key={notesDetail.id}>
-                            <TableCell component="th" scope="row">
-                              <Tooltip title='Edit Link'>
-                                <IconButton
-                                    aria-label="edit link"
-                                    size="small"
-                                    sx={{color: '#1976d2'}}
-                                    onClick={() => handleOpen(notesDetail, 'note', 'edit')}
-                                >
-                                    <Edit />
-                                </IconButton>
-                              </Tooltip>
-                                <Tooltip title='Delete Link'>
-                                    <IconButton
-                                        aria-label="delete link"
-                                        size="small"
-                                        sx={{color: 'red'}}
-                                        onClick={() => dispatch(deleteNote(notesDetail.id))}
-                                        >
-                                        <Delete />
-                                    </IconButton>
-                                  </Tooltip>
-                              <a href={notesDetail.link}>
-                                {notesDetail.title}
-                              </a>
-                            </TableCell>
-                            <TableCell align='left'>{notesDetail.text}</TableCell>
-                            <TableCell align="center">
-                              <Checkbox checked={notesDetail.paid} disabled/>
-                            </TableCell>
-                            <TableCell align="center">
-                              <Checkbox checked={notesDetail.password} disabled/>
-                            </TableCell>
-                            <TableCell align="right">
-                              {notesDetail.editor}
-                            </TableCell>
-                          </TableRow>
+                          <TableCell component="th" scope="row">
+                            <Tooltip title='Edit Link'>
+                              <IconButton
+                                aria-label="edit link"
+                                size="small"
+                                sx={{color: '#1976d2'}}
+                                onClick={() => handleOpen(notesDetail, 'note', 'edit')}
+                              >
+                                <Edit />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title='Delete Link'>
+                              <IconButton
+                                aria-label="delete link"
+                                size="small"
+                                sx={{color: 'red'}}
+                                onClick={() => dispatch(deleteNote(notesDetail.id))}
+                              >
+                                <Delete />
+                              </IconButton>
+                            </Tooltip>
+                          </TableCell>
+                          <TableCell align='left'>
+                            <a href={notesDetail.link}>
+                              {notesDetail.title}
+                            </a>
+                          </TableCell>
+                          <TableCell align='left'>{notesDetail.text}</TableCell>
+                          <TableCell align="center">
+                            <Checkbox checked={notesDetail.paid} disabled/>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Checkbox checked={notesDetail.password} disabled/>
+                          </TableCell>
+                          <TableCell align="right">
+                            {notesDetail.editor}
+                          </TableCell>
+                        </TableRow>
                         ))}
                       </TableBody>
                     </Table>
@@ -299,7 +304,7 @@ const CountiesTable = () => {
             <SummaryForm stateId={stateId}  countyId={countyId} action={action} handleClose={handleClose} />
         </Dialog>
         <TableContainer component={Paper} sx={{mt: 10}}>
-            <Table aria-label="collapsible table" minWidth='375px' >
+            <Table aria-label="collapsible table" sx={{maxWidth:'1058px'}} >
                 <TableHead sx={{position:'sticky'}}>
                   <TableRow>
                       <TableCell sx={{fontWeight: 'bold', fontSize: '1rem', position:'sticky'}} align='center' colSpan={5}>{title}</TableCell>
@@ -308,8 +313,8 @@ const CountiesTable = () => {
                       <TableCell />
                       <TableCell align='left' sx={{fontWeight: 'bold', position:'sticky'}} >County</TableCell>
                       <TableCell sx={{fontWeight: 'bold'}} align="left">Summary</TableCell>
-                      <TableCell sx={{fontWeight: 'bold'}} align="center">Number of Links</TableCell>
-                      <TableCell sx={{fontWeight: 'bold'}} align="center">In Project</TableCell>
+                      <TableCell sx={{fontWeight: 'bold'}} align="center">No. of Links</TableCell>
+                      <TableCell sx={{fontWeight: 'bold'}} align="center">In Project?</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

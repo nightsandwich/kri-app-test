@@ -116,6 +116,7 @@ const StatesTable = () => {
                 <IconButton
                   aria-label="expand row"
                   size="small"
+                  disabled={row.notes === 0}
                   onClick={() => setOpenExpand(!openExpand)}
                 >
                   {openExpand ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -168,7 +169,7 @@ const StatesTable = () => {
             <TableRow>
               <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                 <Collapse in={openExpand} timeout="auto" unmountOnExit>
-                  <Box sx={{ margin: 1 }}>
+                  <Box textAlign={'center'} sx={{ margin: 1, backgroundColor: '#F8F7ED', borderRadius: '7px'}}>
                     <Typography variant="h6" gutterBottom component="div">
                       Research Links
                     </Typography>
@@ -177,7 +178,7 @@ const StatesTable = () => {
                         <TableRow>
                           <TableCell>
                           </TableCell>
-                          <TableCell sx={{fontWeight: 'bold'}}>
+                          <TableCell align='left' sx={{fontWeight: 'bold'}}>
                             Website
                           </TableCell>
                           <TableCell align='left' sx={{fontWeight: 'bold'}}
@@ -212,7 +213,7 @@ const StatesTable = () => {
                                 </IconButton>
                               </Tooltip>
                             </TableCell>
-                            <TableCell>
+                            <TableCell align='left'>
                               <a href={notesDetail.link}>
                                 {notesDetail.title}
                               </a>
@@ -266,7 +267,7 @@ const StatesTable = () => {
           <SummaryForm stateId={stateId} countyId={countyId} action={action} handleClose={handleClose} />
       </Dialog>
       <TableContainer component={Paper} sx={{mt: 10}}>
-      <Table aria-label="collapsible table" minWidth='375px'>
+      <Table aria-label="collapsible table" sx={{maxWidth:'1058px'}} >
         <TableHead>
           <TableRow>
             <TableCell sx={{fontWeight: 'bold', fontSize: '1rem'}} align='center' colSpan={5}>ALL STATES</TableCell>
@@ -275,8 +276,8 @@ const StatesTable = () => {
             <TableCell />
             <TableCell align='left' sx={{fontWeight: 'bold', width: '20%'}}>State</TableCell>
             <TableCell align='left' sx={{fontWeight: 'bold', width: '60%'}}>Summary</TableCell>
-            <TableCell align='center' sx={{fontWeight: 'bold', width: '10%'}}>Number of Links</TableCell>
-            <TableCell align='center' sx={{fontWeight: 'bold', width: '10%'}}>Number of Counties</TableCell>
+            <TableCell align='center' sx={{fontWeight: 'bold', width: '10%'}}>No. of Links</TableCell>
+            <TableCell align='center' sx={{fontWeight: 'bold', width: '10%'}}>No. of Counties</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
