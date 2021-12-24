@@ -95,8 +95,8 @@ export default function Header() {
         onClick: () => handleOpen()
       },
       {
-        label: "Project Counties",
-        onClick: () => {console.log('hi'); handleOpenCounties()}
+        label: `Project Counties (${countiesInSummary.length})`,
+        onClick: () => {handleOpenCounties()}
       },
       {
         label: "Format Addresses",
