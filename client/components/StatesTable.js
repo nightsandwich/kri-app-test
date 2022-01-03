@@ -123,9 +123,14 @@ const StatesTable = () => {
                 </IconButton>
               </TableCell>
               <TableCell align='left' sx={{width: '30%'}}>
+                  <a href={`/states/${row.id}`}>
+                    {row.name}
+                  </a>
+              </TableCell>
+              <TableCell align="left" sx={{width: '40%'}}>
                 <Tooltip title='Edit State Summary'>
                   <IconButton
-                    aria-label="edit state"
+                    aria-label="edit state summary"
                     size="small"
                     sx={{color: '#1976d2'}}
                     onClick={() => handleOpen(row.id, 'state', 'edit')}
@@ -133,11 +138,8 @@ const StatesTable = () => {
                     <Edit />
                   </IconButton>
                 </Tooltip>
-                  <a href={`/states/${row.id}`}>
-                    {row.name}
-                  </a>
+                {row.summary}
               </TableCell>
-              <TableCell align="left" sx={{width: '40%'}}>{row.summary}</TableCell>
               <TableCell align="center" >
                 <Tooltip title='Add Statewide Link'>
                   <IconButton
@@ -153,17 +155,9 @@ const StatesTable = () => {
               </TableCell>
               <TableCell align="center" 
               >
-                {/* <Tooltip title={`Go to ${row.name}'s Counties`}>
-                  <IconButton
-                    aria-label="open counties"
-                    size="small"
-                    sx={{color: '#F1B501'}}
-                    onClick={() => history.push(`/states/${row.id}`)}
-                  >
-                    <ExploreIcon />
-                  </IconButton>
-                </Tooltip> */}
-                {row.counties}
+                <a href={`/states/${row.id}`}>
+                  {row.counties}
+                </a>
               </TableCell>
             </TableRow>
             <TableRow>

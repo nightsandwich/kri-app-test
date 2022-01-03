@@ -219,16 +219,16 @@ export default function Header() {
             // <Box key={label} sx={{ml: 1}}>
             
               href ? 
-              <Box key={label} >
-              <Button  component={Link} to={href} sx={{color: 'black'}}>
+              <Box key={label} sx={{backgroundColor: 'dodgerblue', m: 2}} >
+              <Button  component={Link} to={href} sx={{color: 'white'}} variant='outlined' size='small'>
                   <MenuItem>
                     {label}
                   </MenuItem>
               </Button>
              </Box>
               :
-              <Box key={label} >
-              <Button  onClick={onClick} sx={{color: 'black'}}>
+              <Box key={label} sx={{backgroundColor: 'dodgerblue', m:2}} variant='outlined'>
+              <Button  onClick={onClick} sx={{color: 'white'}} size='small'>
                   <MenuItem>
                     {label}
                   </MenuItem>
@@ -245,7 +245,7 @@ export default function Header() {
         setState((prevState) => ({ ...prevState, drawerOpen: false }));
 
       return (
-        <Toolbar>
+        <Toolbar sx={{backgroundColor: 'dodgerblue'}} >
           <IconButton
             {...{
               edge: 'start',
@@ -257,10 +257,11 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton>
-          <Drawer 
+          <Drawer
             {...{
               anchor: "left",
               open: drawerOpen,
+              onClick: handleDrawerClose,
               onClose: handleDrawerClose,
             }}
             >

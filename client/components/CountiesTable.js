@@ -287,9 +287,9 @@ const CountiesTable = () => {
             <Typography>
                 No counties have been added to {stateName}. Add one below.
             </Typography>
-            <Button style={{marginTop: '1rem', color: '#1976d2', fontWeight: 'bold'}} variant='outlined' onClick={(ev)=>handleOpen(ev, stateId, 'state', 'add')}>Add County to {stateName}</Button>
+            <Button style={{marginTop: '1rem', color: '#1976d2', fontWeight: 'bold'}} variant='outlined' onClick={()=>handleOpen(stateId, 'county', 'add')}>Add County to {stateName}</Button>
             <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
-            <SummaryForm stateId={stateId}  countyId={countyId} action={action} handleClose={handleClose} />
+            <SummaryForm stateId={stateId}  action={'add'} handleClose={handleClose} />
             </Dialog>
             </div>
         )
@@ -303,18 +303,31 @@ const CountiesTable = () => {
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
             <SummaryForm stateId={stateId}  countyId={countyId} action={action} handleClose={handleClose} />
         </Dialog>
-        <TableContainer component={Paper} sx={{mt: 10}}>
+        <Box sx={{ mt: 10, textAlign: 'center'}}>
+        <Tooltip title='Add New County'>
+            <IconButton
+              sx={{color:'#099451'}}
+              aria-label="add county"
+              onClick={() => handleOpen(stateId, 'county', 'add')}
+            >
+              <AddBox />
+            </IconButton>
+          </Tooltip>
+        </Box>
+        <TableContainer component={Paper} sx={{mt: 0}}>
             <Table aria-label="collapsible table" sx={{maxWidth:'1058px'}} >
                 <TableHead sx={{position:'sticky'}}>
                   <TableRow>
-                      <TableCell sx={{fontWeight: 'bold', fontSize: '1rem', position:'sticky'}} align='center' colSpan={5}>{title}</TableCell>
+                      <TableCell sx={{fontWeight: 'bold', fontSize: '1rem', position:'sticky'}} align='center' colSpan={5}>       
+                        {title}
+                      </TableCell>
                   </TableRow>
                   <TableRow>
                       <TableCell />
                       <TableCell align='left' sx={{fontWeight: 'bold', position:'sticky'}} >County</TableCell>
                       <TableCell sx={{fontWeight: 'bold'}} align="left">Summary</TableCell>
                       <TableCell sx={{fontWeight: 'bold'}} align="center">No. of Links</TableCell>
-                      <TableCell sx={{fontWeight: 'bold'}} align="center">In Project?</TableCell>
+                      <TableCell sx={{fontWeight: 'bold'}} align="center">Add to Project</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
