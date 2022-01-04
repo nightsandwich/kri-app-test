@@ -16,6 +16,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
+import Snackbar from '@mui/material/Snackbar';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -29,6 +30,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import SummaryForm from './SummaryForm';
 import NoteForm from './NoteForm';
 import CircularLoading from './CircularLoading';
+import SnackbarForDelete from './SnackbarForDelete';
 
 const CountiesTable = () => {
     const history = useHistory();
@@ -42,6 +44,8 @@ const CountiesTable = () => {
 
     const [open, setOpen] = useState(false);
     const [openNote, setOpenNote] = useState(false);
+    const [openSnack, setOpenSnack] = useState(false);
+    const [openSnackLink, setOpenSnackLink] = useState(false);
     const [action, setAction] = useState('');
     
     const [countyId, setCountyId] = useState('');
@@ -81,13 +85,15 @@ const CountiesTable = () => {
 
     }
     const handleClose = (ev) => {
-        ev.preventDefault();
+        // ev.preventDefault();
         setOpen(false);
         setOpenNote(false);
         setOpenProject(false);
         setCountyId('');
         setNote('');
         setAction('');
+        setOpenSnack(false)
+        setOpenSnackLink(false)
     }
 
     const rows = counties.map( county => (
@@ -143,12 +149,18 @@ const CountiesTable = () => {
                       <Edit />
                     </IconButton>
                   </Tooltip>
+                  <SnackbarForDelete
+                    open={openSnack}
+                    onClose={handleClose}
+                    onClickYes={() => dispatch(deleteCounty(row.id))}
+                    message={'Are you sure you want to delete this county?'}
+                  />
                   <Tooltip title='Delete County'>
                     <IconButton
                       aria-label="delete county"
                       size="small"
                       sx={{color: 'red'}}
-                      onClick={() => dispatch(deleteCounty(row.id))}
+                      onClick={() => setOpenSnack(true)}
                     >
                       <Delete />
                     </IconButton>
@@ -224,12 +236,18 @@ const CountiesTable = () => {
                                 <Edit />
                               </IconButton>
                             </Tooltip>
+                            {/* <SnackbarForDelete
+                              open={openSnackLink}
+                              onClose={handleClose}
+                              onClickYes={() => dispatch(deleteNote(notesDetail.id))}
+                              message='Are you sure you want to delete this link?'
+                            /> */}
                             <Tooltip title='Delete Link'>
                               <IconButton
                                 aria-label="delete link"
                                 size="small"
                                 sx={{color: 'red'}}
-                                onClick={() => dispatch(deleteNote(notesDetail.id))}
+                                onClick={() => {setOpenSnackLink(true); setOpenExpand(true)}}
                               >
                                 <Delete />
                               </IconButton>
