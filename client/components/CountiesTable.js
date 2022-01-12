@@ -247,7 +247,7 @@ const CountiesTable = () => {
                                 aria-label="delete link"
                                 size="small"
                                 sx={{color: 'red'}}
-                                onClick={() => {setOpenSnackLink(true); setOpenExpand(true)}}
+                                onClick={() => dispatch(deleteNote(notesDetail.id))}
                               >
                                 <Delete />
                               </IconButton>
