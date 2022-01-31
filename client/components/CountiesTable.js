@@ -321,23 +321,28 @@ const CountiesTable = () => {
         <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
             <SummaryForm stateId={stateId}  countyId={countyId} action={action} handleClose={handleClose} />
         </Dialog>
-        <Box sx={{ mt: 10, textAlign: 'center'}}>
-        <Tooltip title='Add New County'>
-            <IconButton
-              sx={{color:'#099451'}}
-              aria-label="add county"
-              onClick={() => handleOpen(stateId, 'county', 'add')}
-            >
-              <AddBox />
-            </IconButton>
-          </Tooltip>
-        </Box>
-        <TableContainer component={Paper} sx={{mt: 0}}>
+        
+        <TableContainer component={Paper} sx={{mt: 10}}>
             <Table aria-label="collapsible table" sx={{maxWidth:'1058px'}} >
                 <TableHead sx={{position:'sticky'}}>
                   <TableRow>
-                      <TableCell sx={{fontWeight: 'bold', fontSize: '1rem', position:'sticky'}} align='center' colSpan={5}>       
-                        {title}
+                      <TableCell sx={{fontWeight: 'bold', fontSize: '1rem', position:'sticky'}} align='center' colSpan={5}>
+                        <Box textAlign='center' display='flex' justifyContent='center' alignItems='center'>
+                          <Box>
+                            {title}
+                          </Box>
+                          <Box>
+                            <Tooltip title='Add New County'>
+                              <IconButton
+                                sx={{color:'#099451'}}
+                                aria-label="add county"
+                                onClick={() => handleOpen(stateId, 'county', 'add')}
+                              >
+                                <AddBox />
+                              </IconButton>
+                            </Tooltip>
+                          </Box>
+                        </Box>
                       </TableCell>
                   </TableRow>
                   <TableRow>
