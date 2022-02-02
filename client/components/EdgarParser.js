@@ -9,7 +9,7 @@ const EdgarParser = () => {
   const Instructions = () => (
     <Stack>
       <Typography  variant='subtitle1' >
-        Paste in the boolean search string used for Lexis.
+        Paste in the boolean search string used for Lexis or ProQuest.
       </Typography>
       <Typography  variant='subtitle1' color='text.secondary'>
       ---Example---

@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import {loadStates, loadCounties, loadNotes, deleteNote} from '../store'
 import Dialog from '@mui/material/Dialog';
+import Link from '@mui/material/Link';
 import AddBox from '@mui/icons-material/AddBox';
 import Edit from '@mui/icons-material/Edit';
 import Delete from '@mui/icons-material/Delete';
@@ -123,9 +124,10 @@ const StatesTable = () => {
                 </IconButton>
               </TableCell>
               <TableCell align='left' sx={{width: '30%'}}>
-                  <a href={`/states/${row.id}`}>
+                  <Link href={`/states/${row.id}`}> 
                     {row.name}
-                  </a>
+                  </Link>
+                  
               </TableCell>
               <TableCell align="left" sx={{width: '40%'}}>
                 <Tooltip title='Edit State Summary'>
@@ -208,7 +210,7 @@ const StatesTable = () => {
                               </Tooltip>
                             </TableCell>
                             <TableCell align='left'>
-                              <a href={notesDetail.link}>
+                              <a href={notesDetail.link} target="_blank" rel="noreferrer noopener">
                                 {notesDetail.title}
                               </a>
                             </TableCell>

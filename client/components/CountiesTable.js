@@ -254,7 +254,7 @@ const CountiesTable = () => {
                             </Tooltip>
                           </TableCell>
                           <TableCell align='left'>
-                            <a href={notesDetail.link}>
+                            <a href={notesDetail.link} target="_blank" rel="noreferrer noopener">
                               {notesDetail.title}
                             </a>
                           </TableCell>
