@@ -7,7 +7,7 @@ import Parser from "./Parser";
 
 const AddressParser = () => {
   const parser = str => {
-    let spl = str.split('\n');
+    let spl = str.toUpperCase().split('\n');
 
     if (str.includes('(')){
       spl = spl.join(' ').split(') ')
@@ -26,35 +26,38 @@ const AddressParser = () => {
           spl[i] = item.join(' ')
       }
     }
-    return spl.reduce((accum, item) => {
+    const setParsed = spl.reduce((accum, item) => {
       let itemArr = item.split(' ');
-   console.log('itemArr', itemArr)   
       itemArr[0] === '' ? itemArr.shift() : '';
       const boxIdx = itemArr.indexOf('BOX')
       if (itemArr[1]){
         if (itemArr[1].length === 1) {
           const retStr = itemArr[0].concat(' ', itemArr[1], ' ', itemArr[2]);
-          accum.push(`"${retStr}"`);
+          accum.add(`"${retStr}"`);
           if(itemArr[1] === 'N'){
-            accum.push(`"${itemArr[0].concat(' NORTH ', itemArr[2])}"`);
+            accum.add(`"${itemArr[0].concat(' NORTH ', itemArr[2])}"`);
           }
           if(itemArr[1] === 'S'){
-            accum.push(`"${itemArr[0].concat(' SOUTH ', itemArr[2])}"`);
+            accum.add(`"${itemArr[0].concat(' SOUTH ', itemArr[2])}"`);
           }
           if(itemArr[1] === 'E'){
-            accum.push(`"${itemArr[0].concat(' EAST ', itemArr[2])}"`);
+            accum.add(`"${itemArr[0].concat(' EAST ', itemArr[2])}"`);
           }
           if(itemArr[1] === 'W'){
-            accum.push(`"${itemArr[0].concat(' WEST ', itemArr[2])}"`);
+            accum.add(`"${itemArr[0].concat(' WEST ', itemArr[2])}"`);
           }
         } else if (boxIdx > -1){
-          accum.push(`"${itemArr[boxIdx].concat(' ',itemArr[boxIdx + 1])}"`)
+          accum.add(`"${itemArr[boxIdx].concat(' ',itemArr[boxIdx + 1])}"`)
         } else if (itemArr[0][0] !== '(' ){
-        accum.push(`"${itemArr[0].concat(' ', itemArr[1])}"`)
+        accum.add(`"${itemArr[0].concat(' ', itemArr[1])}"`)
         } 
       } 
       return accum;
-    }, []).join(' OR ')
+    }, new Set())
+    let returnStr = ''
+    setParsed.forEach((item) => returnStr += item + ' OR ')
+    return returnStr.slice(0,-4)
+
   }
   const Instructions = () => (
     <>
