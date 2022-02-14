@@ -20,8 +20,6 @@ const AddressParser = () => {
 
       for (let i = 0; i < spl.length; i++){
         let item = spl[i].split(' ')
-        //console.log(item)
-        //console.log(item[0])
         if (item[0] === ''){
           item.splice(0, 2);
         }
@@ -30,9 +28,9 @@ const AddressParser = () => {
     }
     return spl.reduce((accum, item) => {
       let itemArr = item.split(' ');
-      
+   console.log('itemArr', itemArr)   
       itemArr[0] === '' ? itemArr.shift() : '';
-      
+      const boxIdx = itemArr.indexOf('BOX')
       if (itemArr[1]){
         if (itemArr[1].length === 1) {
           const retStr = itemArr[0].concat(' ', itemArr[1], ' ', itemArr[2]);
@@ -48,7 +46,9 @@ const AddressParser = () => {
           }
           if(itemArr[1] === 'W'){
             accum.push(`"${itemArr[0].concat(' WEST ', itemArr[2])}"`);
-          } 
+          }
+        } else if (boxIdx > -1){
+          accum.push(`"${itemArr[boxIdx].concat(' ',itemArr[boxIdx + 1])}"`)
         } else if (itemArr[0][0] !== '(' ){
         accum.push(`"${itemArr[0].concat(' ', itemArr[1])}"`)
         } 
