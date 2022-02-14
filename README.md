@@ -5,6 +5,7 @@
 * It utilizes CRUD operations in RESTful API routes.
     * Each state and county has an optional summmary field, which can be edited.
     * Each state and county can have associated research sites with an optional note/description that can be edited and deleted.
+* A researcher can parse a list of addresses to return only unique results in the correct boolean search format needed for certain database searches.
 * Additionally, a researcher can select which counties are relevant to their current project and produce a summary of everything they will need to research for that project.
 
 ## Tech Stack
