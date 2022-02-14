@@ -47,7 +47,8 @@ const AddressParser = () => {
             accum.add(`"${itemArr[0].concat(' WEST ', itemArr[2])}"`);
           }
         } else if (boxIdx > -1){
-          accum.add(`"${itemArr[boxIdx].concat(' ',itemArr[boxIdx + 1])}"`)
+          const boxStr = `"${itemArr[boxIdx].concat(' ',itemArr[boxIdx + 1])}"`
+          accum.add(boxStr)
         } else if (itemArr[0][0] !== '(' ){
         accum.add(`"${itemArr[0].concat(' ', itemArr[1])}"`)
         } 
