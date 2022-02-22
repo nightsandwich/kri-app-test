@@ -47,13 +47,16 @@ const AddressParser = () => {
             accum.add(`"${itemArr[0].concat(' WEST ', itemArr[2])}"`);
           }
         } else if (boxIdx > -1){
-          const boxStr = `"${itemArr[boxIdx].concat(' ',itemArr[boxIdx + 1])}"`
+          let boxStr = `"${itemArr[boxIdx].concat(' ',itemArr[boxIdx + 1])}"`
+          boxStr = boxStr.replace(',', '')
           accum.add(boxStr)
         } else if (itemArr[0][0] !== '(' ){
         accum.add(`"${itemArr[0].concat(' ', itemArr[1])}"`)
         } 
       } 
-      return accum;
+      // console.log('accum', accum)
+      //console.log('accum' , accum.replaceAll(',', ''))
+      return accum
     }, new Set())
     let returnStr = ''
     setParsed.forEach((item) => returnStr += item + ' OR ')
