@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const isLoggedIn = require('../middleware/isLoggedIn'
 )
-const { models: { State, County, Note, User }} = require('../db')
+const { models: { County}} = require('../db')
 
 module.exports = router
 
