@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import {loadStates, editCounty, deleteCounty, deleteNote, addUserCounty} from '../store'
+import {loadStates, editCounty, deleteUserCounty, deleteCounty, deleteNote, addUserCounty} from '../store'
 import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
 import AddBox from '@mui/icons-material/AddBox';
@@ -189,8 +189,13 @@ const CountiesTable = () => {
                     aria-label="add county to project"
                     size="small"
                     sx={{color: row.inProject ? '#F1B501' : 'grey'}}
-                    onClick={() => {
-                      dispatch(addUserCounty({countyId: row.id}))}
+                    onClick={async() => {
+                      if (userCounties.find(userCounty => userCounty.countyId === row.id)){
+                        const county = userCounties.find(userCounty => userCounty.countyId === row.id)
+                        await dispatch(deleteUserCounty(county.id))
+                      } else {
+                        await dispatch(addUserCounty({countyId: row.id}))}
+                      }
                     }
                   >
                     <CreateNewFolderIcon />
