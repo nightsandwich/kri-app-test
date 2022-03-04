@@ -31,3 +31,14 @@ router.post('/', isLoggedIn, async (req, res, next) => {
     next(err)
   }
 })
+
+router.delete('/:id', isLoggedIn, async(req, res, next)=> {
+  try {
+    const userCounty = (await UserCounty.findByPk(req.params.id));
+    await userCounty.destroy();
+    res.sendStatus(201)
+  }
+  catch(ex){
+    next(ex);
+  }
+});

@@ -4,8 +4,7 @@ const TOKEN = 'token';
 
 const LOAD_USER_COUNTIES = 'LOAD_USER_COUNTIES';
 const ADD_USER_COUNTY = 'ADD_USER_COUNTY';
-const UPDATE_NOTE = 'UPDATE_NOTE';
-const DELETE_NOTE = 'DELETE_NOTE';
+const DELETE_USER_COUNTY = 'DELETE_USER_COUNTY';
 
 const _loadUserCounties = (userCounties) => {
     return {
@@ -50,26 +49,26 @@ export const addUserCounty = (countyId) => {
     }
 }
 
-const _deleteNote = id => {
+const _deleteUserCounty = id => {
     return {
-        type: DELETE_NOTE,
+        type: DELETE_USER_COUNTY,
         id
     }
 };
 
-// export const deleteNote = (id) => {
-//     const token = window.localStorage.getItem(TOKEN)
-//     if (token){
-//         return async(dispatch) => {
-//             (await axios.delete(`/api/notes/${id}`, {
-//                 headers: {
-//                     authorization: token
-//                 }
-//             }));
-//             dispatch(_deleteNote(id));
-//         }
-//     }
-// }
+export const deleteUserCounty = (id) => {
+    const token = window.localStorage.getItem(TOKEN)
+    if (token){
+        return async(dispatch) => {
+            (await axios.delete(`/api/usercounties/${id}`, {
+                headers: {
+                    authorization: token
+                }
+            }));
+            dispatch(_deleteUserCounty(id));
+        }
+    }
+}
 
 export default function(state = [], action){
     switch(action.type) {
@@ -77,10 +76,8 @@ export default function(state = [], action){
             return action.userCounties
         case ADD_USER_COUNTY:
             return [...state, action.userCounty]
-        // case UPDATE_NOTE:
-        //     return state.map(note => note.id === action.note.id ? action.note : note)
-        // case DELETE_NOTE:
-        //     return state.filter(note => note.id !== action.id)
+        case DELETE_USER_COUNTY:
+            return state.filter(userCounty => userCounty.id !== action.id)
         default:
             return state
     }
