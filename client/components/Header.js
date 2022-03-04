@@ -32,7 +32,9 @@ export default function Header() {
   }))
   
   const allStates = useSelector(state => state.states)
-  const userCounties = useSelector(state => state.userCounties)
+  let counties = useSelector(state => state.counties)
+  let userCounties = useSelector(state => state.userCounties)
+  const countiesInSummary = userCounties.map(userCounty => counties.find(county => county.id === userCounty.countyId))
   //const countiesInSummary = useSelector(state => state.counties.filter(county => county.inProject))  
   const { header, logo, menuButton } = useStyles();
   const dispatch = useDispatch()
@@ -138,14 +140,14 @@ export default function Header() {
     // if (!countiesInSummary || !allStates) return <CircularLoading />
     if (!headerDataIsLoaded) return <CircularLoading />
 
-    // const statesIds = countiesInSummary.reduce((accum, county) => {
-    //   !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
-    //   return accum;
-    // },[]);
-    const statesIds = userCounties.reduce((accum, county) => {
+    const statesIds = countiesInSummary.reduce((accum, county) => {
       !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
       return accum;
     },[]);
+    // const statesIds = userCounties.reduce((accum, county) => {
+    //   !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
+    //   return accum;
+    // },[]);
     const statesInSummary = allStates.filter(state => statesIds.includes(state.id))
 
     const kriLogo = (
@@ -286,8 +288,8 @@ export default function Header() {
               <ProjectCounties handleClose={handleClose}/>
           </Dialog>
           <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
-              <ProjectSummary states={statesInSummary} counties={userCounties} handleClose={handleClose} />
-              {/* <ProjectSummary states={statesInSummary} counties={countiesInSummary} handleClose={handleClose} /> */}
+              {/* <ProjectSummary states={statesInSummary} userCounties={userCounties} handleClose={handleClose} /> */}
+              <ProjectSummary states={statesInSummary} counties={countiesInSummary} handleClose={handleClose} />
           </Dialog>
           <AppBar sx={{backgroundColor: '#078BEC',
       paddingLeft: 4,
