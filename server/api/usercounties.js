@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const isLoggedIn = require('../middleware/isLoggedIn'
 )
-const { models: { UserCounty, State }} = require('../db')
+const { models: { UserCounty, County }} = require('../db')
 module.exports = router
 
 router.get('/', isLoggedIn, async (req, res, next) => {
@@ -10,7 +10,8 @@ router.get('/', isLoggedIn, async (req, res, next) => {
     const userCounties = await UserCounty.findAll({
       where: {
         userId: user.id
-      }
+      }, 
+      include: County
     })
     res.json(userCounties)
   } catch (err) {
@@ -22,9 +23,12 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   const {user} = req
   const { countyId } = req.body;
   try {
-    const userCounty = await UserCounty.create({ 
+    let userCounty = await UserCounty.create({ 
       userId: user.id,
       countyId: countyId
+    })
+    userCounty = await UserCounty.findByPk(userCounty.id, {
+      include: County
     })
     res.json(userCounty)
   } catch (err) {
