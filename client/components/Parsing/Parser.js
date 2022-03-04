@@ -1,19 +1,15 @@
-import React, {useState, useEffect} from "react";
-import { useDispatch, useSelector} from 'react-redux';
+import React, {useState} from "react";
 
-import { TextField, Menu, FormControl, FormControlLabel, InputLabel, Checkbox, Button, Box, Typography, Stack, MenuItem } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import { TextField, Button, Box } from "@mui/material";
 
-
-const Parser = ({Instructions, parser, searchLabel, resultsLabel }) => {
+const Parser = ({Instructions, searchLabel, resultsLabel, parser}) => {
     const [searchString, setSearchString] = useState('');
-
+    const [parsed, setParsed] = useState('');
+    
     const onChange = ev => {
       ev.persist();
       setSearchString(ev.target.value);
     }
-    
-    const [parsed, setParsed] = useState('');
     
     const onSubmit = (ev) => {
         ev.preventDefault();
@@ -34,7 +30,6 @@ const Parser = ({Instructions, parser, searchLabel, resultsLabel }) => {
         <TextField  multiline maxRows={100} size='small' style={{marginTop: '2rem'}} value={parsed || ''} label={resultsLabel} InputProps={{readOnly: true}}
         />
     </div>
-    
     )
 }
 

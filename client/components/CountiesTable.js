@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import {loadStates, editCounty, deleteUserCounty, deleteCounty, deleteNote, addUserCounty} from '../store'
+import {deleteUserCounty, deleteCounty, deleteNote, addUserCounty} from '../store'
 import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
 import AddBox from '@mui/icons-material/AddBox';
@@ -38,7 +38,7 @@ const CountiesTable = () => {
     const stateId = +(history.location.pathname.slice(8));
     
     const auth = useSelector(state => state.auth);
-    const state = useSelector(state => state.states.find(st => st.id === stateId));
+    const state = useSelector(state => state.states.find(st => st.id === stateId))
     let counties = useSelector(state => state.counties.filter(county => county.stateId === stateId));
     let notes = useSelector(state => state.notes);
     let userCounties = useSelector(state => state.userCounties);
@@ -51,11 +51,11 @@ const CountiesTable = () => {
     
     const [countyId, setCountyId] = useState('');
     const [note, setNote] = useState('');
-    const [openProject, setOpenProject] = useState(false);
+    // const [openProject, setOpenProject] = useState(false);
 
-    const handleOpenProject = (ev) => {
-        setOpenProject(true);
-    }
+    // const handleOpenProject = (ev) => {
+    //     setOpenProject(true);
+    // }
     
     if (!state || !counties || !notes || !auth || !userCounties) return <CircularLoading />
     
@@ -86,10 +86,9 @@ const CountiesTable = () => {
 
     }
     const handleClose = (ev) => {
-        // ev.preventDefault();
         setOpen(false);
         setOpenNote(false);
-        setOpenProject(false);
+        // setOpenProject(false);
         setCountyId('');
         setNote('');
         setAction('');
@@ -138,8 +137,7 @@ const CountiesTable = () => {
               </TableCell>
               
                 <TableCell align='left' sx={{width: '30%'}}>
-                    
-                    
+
                   <Tooltip title='Edit County'>
                     <IconButton
                       aria-label="edit county"
@@ -201,9 +199,6 @@ const CountiesTable = () => {
                     <CreateNewFolderIcon />
                   </IconButton>
                 </Tooltip>
-                
-                    {/* <Checkbox checked={row.inProject} disabled/> */}
-                
               </TableCell>
             </TableRow>
             <TableRow>
@@ -231,6 +226,12 @@ const CountiesTable = () => {
                       <TableBody>
                         {row.notesDetail.map((notesDetail) => (
                           <TableRow key={notesDetail.id}>
+                              {/* <SnackbarForDelete
+                              open={openSnackLink}
+                              onClose={handleClose}
+                              onClickYes={() => dispatch(deleteNote(notesDetail.id))}
+                              message='Are you sure you want to delete this link?'
+                            /> */}
                           <TableCell component="th" scope="row">
                             <Tooltip title='Edit Link'>
                               <IconButton
@@ -242,19 +243,15 @@ const CountiesTable = () => {
                                 <Edit />
                               </IconButton>
                             </Tooltip>
-                            {/* <SnackbarForDelete
-                              open={openSnackLink}
-                              onClose={handleClose}
-                              onClickYes={() => dispatch(deleteNote(notesDetail.id))}
-                              message='Are you sure you want to delete this link?'
-                            /> */}
                             <Tooltip title='Delete Link'>
                               <IconButton
                                 aria-label="delete link"
                                 size="small"
                                 sx={{color: 'red'}}
+                                // onClick={() => {setOpenExpand(true);setOpenSnackLink(true)}}
                                 onClick={() => dispatch(deleteNote(notesDetail.id))}
                               >
+                              
                                 <Delete />
                               </IconButton>
                             </Tooltip>

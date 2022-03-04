@@ -1,11 +1,10 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import { Login } from './components/AuthForm';
-import Home from './components/Home';
+import { LogIn } from './components/LogIn';
 import CountiesTable from './components/CountiesTable';
-import EdgarParser from './components/EdgarParser';
-import AddressParser from './components/AddressParser';
+import AddressParserWrapper from './components/Parsing/Addresses/AddressParserWrapper';
+import EdgarParser from './components/Parsing/Edgar/EdgarParserWrapper';
 import Header from './components/Header';
 import StatesTable from './components/StatesTable';
 import Profile from './components/Profile';
@@ -29,29 +28,27 @@ class Routes extends Component {
 
     return (
       <div>
-        {/* <Route component={Navbar} path='/'/> */}
-        {isLoggedIn ? (
+        {
+          isLoggedIn ? (
           <>
             <Route component={Header} path='/'/>
           <Switch>
-            {/* <Route path="/home" component={Home} /> */}
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/profile/password" component={Password} />
-
             <Route exact path='/states' render={() => <StatesTable /> } />
             <Route exact path='/states/:id' render={() => <CountiesTable /> } />
-            <Route component={AddressParser} path='/parseaddresses' />
+            <Route component={AddressParserWrapper} path='/parseaddresses' />
             <Route component={EdgarParser} path='/parseproedgar' />
             <Redirect to="/states" />
           </Switch>
           </>
         ) : (
           <Switch>
-            <Route path='/' exact component={ Login } />
-            <Route path="/login" component={Login} />
-            {/* <Route path="/signup" component={Signup} /> */}
+            <Route path='/' exact component={ LogIn } />
+            <Route path="/login" component={LogIn} />
           </Switch>
-        )}
+        )
+      }
       </div>
     )
   }
