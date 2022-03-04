@@ -28,16 +28,6 @@ const AuthForm = props => {
                     Sign In
                 </Typography>
               </Box>
-        {/* <Box
-            sx={{
-              mt: 2,
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-              alignContent: 'center',
-              justifyContent: 'center'
-            }}
-            > */}
             <Box component="form" onSubmit={handleSubmit} name={name} sx={{ mt: 0, ml: 0, pl: 0, fontSize: 'smaller', }}>
                 <TextField
                     // margin='dense'

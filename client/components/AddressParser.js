@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
-import { useDispatch, useSelector} from 'react-redux';
 
-import { TextField, Menu, FormControl, FormControlLabel, InputLabel, Checkbox, Button, Box, Typography, MenuItem } from "@mui/material";
+import { Typography, MenuItem } from "@mui/material";
 import Parser from "./Parser";
 
 
@@ -54,8 +53,6 @@ const AddressParser = () => {
         accum.add(`"${itemArr[0].concat(' ', itemArr[1])}"`)
         } 
       } 
-      // console.log('accum', accum)
-      //console.log('accum' , accum.replaceAll(',', ''))
       return accum
     }, new Set())
     let returnStr = ''
