@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import {loadStates, editCounty, deleteCounty, deleteNote} from '../store'
+import {loadStates, editCounty, deleteCounty, deleteNote, addUserCounty} from '../store'
 import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
 import AddBox from '@mui/icons-material/AddBox';
@@ -41,6 +41,7 @@ const CountiesTable = () => {
     const state = useSelector(state => state.states.find(st => st.id === stateId));
     let counties = useSelector(state => state.counties.filter(county => county.stateId === stateId));
     let notes = useSelector(state => state.notes);
+    let userCounties = useSelector(state => state.userCounties);
 
     const [open, setOpen] = useState(false);
     const [openNote, setOpenNote] = useState(false);
@@ -56,7 +57,7 @@ const CountiesTable = () => {
         setOpenProject(true);
     }
     
-    if (!state || !counties || !notes || !auth) return <CircularLoading />
+    if (!state || !counties || !notes || !auth || !userCounties) return <CircularLoading />
     
     const stateName = state.name;
     counties = counties.sort((a,b) => a.name < b.name ? -1 : 1)
@@ -98,7 +99,7 @@ const CountiesTable = () => {
 
     const rows = counties.map( county => (
         {
-            inProject: county.inProject,
+            inProject: !!userCounties.find(userCounty => userCounty.countyId === county.id),
             name: county.name,
             summary: county.summary,
             notesDetail: notes.filter(note => note.countyId === county.id).map(note => (
@@ -189,7 +190,7 @@ const CountiesTable = () => {
                     size="small"
                     sx={{color: row.inProject ? '#F1B501' : 'grey'}}
                     onClick={() => {
-                      dispatch(editCounty({id: row.id, inProject: !row.inProject}))}
+                      dispatch(addUserCounty({countyId: row.id}))}
                     }
                   >
                     <CreateNewFolderIcon />
@@ -312,7 +313,6 @@ const CountiesTable = () => {
             </div>
         )
     }
-
     return (
         <>
         <Dialog onClose={handleClose} open={openNote} fullWidth maxWidth='lg'>

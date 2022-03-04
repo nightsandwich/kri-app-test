@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import {IconButton, MenuItem, Drawer, Box, Dialog, Toolbar, Tooltip, Button, Typography, AppBar, Paper} from '@mui/material';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
 import { makeStyles } from "@mui/styles";
-import { loadCounties, loadStates, logout, loadNotes } from '../store'
+import { loadCounties, loadStates, logout, loadNotes, loadUserCounties } from '../store'
 import ProjectSummary from "./ProjectSummary";
 import ProjectCounties from './ProjectCounties';
 import CircularLoading from './CircularLoading'
@@ -32,7 +32,8 @@ export default function Header() {
   }))
   
   const allStates = useSelector(state => state.states)
-  const countiesInSummary = useSelector(state => state.counties.filter(county => county.inProject))  
+  const userCounties = useSelector(state => state.userCounties)
+  //const countiesInSummary = useSelector(state => state.counties.filter(county => county.inProject))  
   const { header, logo, menuButton } = useStyles();
   const dispatch = useDispatch()
     const [state, setState] = useState({
@@ -61,6 +62,7 @@ export default function Header() {
     }
     const loadData = () => {
       dispatch(loadCounties())
+      dispatch(loadUserCounties())
       dispatch(loadStates())
       dispatch(loadNotes())
     }
@@ -95,7 +97,7 @@ export default function Header() {
         onClick: () => handleOpen()
       },
       {
-        label: `Project Counties (${countiesInSummary.length})`,
+        label: `Project Counties (${userCounties.length})`,
         onClick: () => {handleOpenCounties()}
       },
       {
@@ -136,7 +138,11 @@ export default function Header() {
     // if (!countiesInSummary || !allStates) return <CircularLoading />
     if (!headerDataIsLoaded) return <CircularLoading />
 
-    const statesIds = countiesInSummary.reduce((accum, county) => {
+    // const statesIds = countiesInSummary.reduce((accum, county) => {
+    //   !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
+    //   return accum;
+    // },[]);
+    const statesIds = userCounties.reduce((accum, county) => {
       !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
       return accum;
     },[]);
@@ -280,7 +286,8 @@ export default function Header() {
               <ProjectCounties handleClose={handleClose}/>
           </Dialog>
           <Dialog onClose={handleClose} open={open} fullWidth maxWidth='lg'>
-              <ProjectSummary states={statesInSummary} counties={countiesInSummary} handleClose={handleClose} />
+              <ProjectSummary states={statesInSummary} counties={userCounties} handleClose={handleClose} />
+              {/* <ProjectSummary states={statesInSummary} counties={countiesInSummary} handleClose={handleClose} /> */}
           </Dialog>
           <AppBar sx={{backgroundColor: '#078BEC',
       paddingLeft: 4,
