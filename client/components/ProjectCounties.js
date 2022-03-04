@@ -1,7 +1,7 @@
 import React , {useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {useHistory} from 'react-router-dom';
-import { editCounty } from "../store";
+import { editCounty, deleteUserCounty } from "../store";
 import {Button, Typography, Box } from '@mui/material';
 import ProjectSummary from "./ProjectSummary";
 import CloseIcon from '@mui/icons-material/Close';
@@ -9,12 +9,19 @@ import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox
 
 const ProjectCounties = ({handleClose}) => {
     const dispatch = useDispatch();
-    let counties = useSelector(({counties}) => counties.filter(county => county.inProject));
+    let userCounties = useSelector(({userCounties}) => userCounties)
+    let counties = useSelector(({counties}) => counties.filter(county => userCounties.find(userCounty => userCounty.countyId === county.id)));
+    // let counties = useSelector(({counties}) => counties.filter(county => county.inProject));
     counties = counties.sort((a,b) => a.name < b.name ? -1 : 1)
     const states = useSelector(({states}) => states)
 
     const clearNotes = () => {
-        counties.forEach(county => dispatch(editCounty({...county, inProject: false})));
+        // counties.forEach(county => dispatch(editCounty({...county, inProject: false})));
+        userCounties.forEach(county => dispatch(deleteUserCounty(county.id)));
+    }
+    const handleClick = async(countyId) => {
+        const userCounty = userCounties.find(county => county.countyId === countyId)
+        await dispatch(deleteUserCounty(userCounty.id))
     }
     return(
         <Box>
@@ -29,7 +36,7 @@ const ProjectCounties = ({handleClose}) => {
                         return (
                             <div key={county.id} style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <div>
-                                    <Button startIcon={<IndeterminateCheckBoxIcon style={{color: '#1976d2', fontWeight: 'bold'}}/>} onClick={()=>dispatch(editCounty({...county, inProject: false}))} >
+                                    <Button startIcon={<IndeterminateCheckBoxIcon style={{color: '#1976d2', fontWeight: 'bold'}}/>} onClick={() => handleClick(county.id)} >
                                     </Button>
                                 </div>    
                                 <div >
