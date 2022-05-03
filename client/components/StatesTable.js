@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import {loadStates, loadCounties, loadNotes, deleteNote} from '../store'
+import {loadStates, loadCounties, deleteNote} from '../store'
 import Dialog from '@mui/material/Dialog';
 import Link from '@mui/material/Link';
 import AddBox from '@mui/icons-material/AddBox';
