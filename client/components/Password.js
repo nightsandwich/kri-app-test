@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router";
+import { Link, useHistory } from "react-router-dom";
 
 //////////// MUI //////////////////
 import { Alert, Avatar, Box, Button, Container, IconButton, Grid, OutlinedInput, InputLabel, InputAdornment, FormControl, TextField, Typography, Alert as MuiAlert, Snackbar } from '@mui/material';

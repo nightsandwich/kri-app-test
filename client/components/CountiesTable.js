@@ -2,7 +2,7 @@ import React, {useEffect, forwardRef} from 'react'
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import {deleteUserCounty, deleteCounty, deleteNote, addUserCounty} from '../store'
 import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
