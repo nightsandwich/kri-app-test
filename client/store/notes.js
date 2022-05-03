@@ -38,7 +38,6 @@ const _addNote = note => {
 export const addNote = (note) => {
     const token = window.localStorage.getItem(TOKEN)
     if (token){
-        console.log("TOKEN")
         return async(dispatch) => {
             const added = (await axios.post('/api/notes', note, {
                 headers: {
