@@ -37,7 +37,6 @@ const _addUserCounty = userCounty => {
 export const addUserCounty = (countyId) => {
     const token = window.localStorage.getItem(TOKEN)
     if (token){
-        console.log("TOKEN")
         return async(dispatch) => {
             const added = (await axios.post('/api/usercounties', countyId, {
                 headers: {
