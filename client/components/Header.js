@@ -62,20 +62,21 @@ export default function Header() {
     const logoutUser = () => {
       dispatch(logout())
     }
-    const loadData = () => {
-      dispatch(loadCounties())
-      dispatch(loadUserCounties())
-      dispatch(loadStates())
-      dispatch(loadNotes())
+    const loadData = async() => {
+      await dispatch(loadStates())
+      await dispatch(loadCounties())
+      await dispatch(loadNotes())
+      await dispatch(loadUserCounties())
     }
-  useEffect(() => {
-    const load = async() => {
-      await loadData()
-    }
+    useEffect(() => {
+    // useEffect(() => {
+    // const load = async() => {
+    //   await loadData()
+    // }
     // let isSubscribed = true;
     
       try {
-        load()
+        loadData()
         setHeaderDataIsLoaded(true);
       } catch (err){
         console.log(err)
