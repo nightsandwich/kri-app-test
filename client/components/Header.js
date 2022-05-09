@@ -69,32 +69,33 @@ export default function Header() {
     //   dispatch(loadUserCounties())
     // }
     const loadData = async() => {
-        await dispatch(loadStates())
-        await dispatch(loadCounties())
-        await dispatch(loadNotes())
-        await dispatch(loadUserCounties())
-        console.log('done load')
-        setHeaderDataIsLoaded(true);
-      }
-      useEffect(() => {
-        // const load = async() => {
+      await dispatch(loadStates())
+      await dispatch(loadCounties())
+      await dispatch(loadNotes())
+      await dispatch(loadUserCounties())
+      console.log('done load')
+      setHeaderDataIsLoaded(true);
+    }
+    useEffect(() => {
+      // const load = async() => {
         //   await loadData()
         // }
         try {
           loadData()
           // load()
-      } catch (err){
-        console.log(err)
-        // if (isSubscribed) {
-        //   setHeaderDataIsLoaded(false)
-        // }
-      }
-    
-    // return () => isSubscribed = false
-    // () => setIsLoaded(false)
-  }, [isLoggedIn])
-  
-
+        } catch (err){
+          console.log(err)
+          // if (isSubscribed) {
+            //   setHeaderDataIsLoaded(false)
+            // }
+          }
+          
+          // return () => isSubscribed = false
+          // () => setIsLoaded(false)
+        }, [isLoggedIn])
+        
+    const countiesInSummary = userCounties.map(userCounty => counties.find(county => county.id === userCounty.countyId))
+        
     const headersData = [
       {
         label: "States",
@@ -143,11 +144,10 @@ export default function Header() {
         window.removeEventListener("resize", () => setResponsiveness());
       }
     }, []);
-    // if (!countiesInSummary || !allStates) return <CircularLoading />
-    if (!headerDataIsLoaded) return <CircularLoading />
-console.log('countiesinsummary', countiesInSummary)
-    const countiesInSummary = userCounties.map(userCounty => counties.find(county => county.id === userCounty.countyId))
     
+    if (!headerDataIsLoaded) return <CircularLoading />
+    
+    console.log('countiesinsummary', countiesInSummary)
     const statesIds = countiesInSummary.length > 0 ? countiesInSummary.reduce((accum, county) => {
       !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
       return accum;
