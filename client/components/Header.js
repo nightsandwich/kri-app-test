@@ -31,11 +31,17 @@ export default function Header() {
     }
   }))
   
-  const allStates = useSelector(state => state.states)
-  let counties = useSelector(state => state.counties)
-  let userCounties = useSelector(state => state.userCounties)
+  const allStates = useSelector(({states}) => states)
+  let counties = useSelector(({counties}) => counties)
+  let userCounties = useSelector(({userCounties}) => userCounties)
   const countiesInSummary = userCounties.map(userCounty => counties.find(county => county.id === userCounty.countyId))
-  //const countiesInSummary = useSelector(state => state.counties.filter(county => county.inProject))  
+  //const countiesInSummary = useSelector(state => state.counties.filter(county => county.inProject))
+  
+  // const statesIds = countiesInSummary.length > 0 ? countiesInSummary.reduce((accum, county) => {
+  //   !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
+  //   return accum;
+  // },[]) : [];
+
   const { header, logo, menuButton } = useStyles();
   const dispatch = useDispatch()
     const [state, setState] = useState({
@@ -62,22 +68,27 @@ export default function Header() {
     const logoutUser = () => {
       dispatch(logout())
     }
-    const loadData = async() => {
-      await dispatch(loadStates())
-      await dispatch(loadCounties())
-      await dispatch(loadNotes())
-      await dispatch(loadUserCounties())
-    }
-    useEffect(() => {
-    // useEffect(() => {
-    // const load = async() => {
-    //   await loadData()
+    // const loadData = () => {
+    //   dispatch(loadStates())
+    //   dispatch(loadCounties())
+    //   dispatch(loadNotes())
+    //   dispatch(loadUserCounties())
     // }
-    // let isSubscribed = true;
-    
-      try {
-        loadData()
+    const loadData = async() => {
+        await dispatch(loadStates())
+        await dispatch(loadCounties())
+        await dispatch(loadNotes())
+        await dispatch(loadUserCounties())
+        console.log('done load')
         setHeaderDataIsLoaded(true);
+      }
+      useEffect(() => {
+        // const load = async() => {
+        //   await loadData()
+        // }
+        try {
+          loadData()
+          // load()
       } catch (err){
         console.log(err)
         // if (isSubscribed) {
@@ -138,17 +149,14 @@ export default function Header() {
         window.removeEventListener("resize", () => setResponsiveness());
       }
     }, []);
-    // if (!countiesInSummary || !allStates) return <CircularLoading />
+
     if (!headerDataIsLoaded) return <CircularLoading />
 
-    const statesIds = countiesInSummary.reduce((accum, county) => {
+    const statesIds = countiesInSummary.length > 0 ? countiesInSummary.reduce((accum, county) => {
       !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
       return accum;
-    },[]);
-    // const statesIds = userCounties.reduce((accum, county) => {
-    //   !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
-    //   return accum;
-    // },[]);
+    },[]) : [];
+    
     const statesInSummary = allStates.filter(state => statesIds.includes(state.id))
 
     const kriLogo = (
