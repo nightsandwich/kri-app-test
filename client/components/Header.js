@@ -73,26 +73,15 @@ export default function Header() {
       await dispatch(loadCounties())
       await dispatch(loadNotes())
       await dispatch(loadUserCounties())
-      console.log('done load')
       setHeaderDataIsLoaded(true);
     }
     useEffect(() => {
-      // const load = async() => {
-        //   await loadData()
-        // }
-        try {
-          loadData()
-          // load()
-        } catch (err){
-          console.log(err)
-          // if (isSubscribed) {
-            //   setHeaderDataIsLoaded(false)
-            // }
-          }
-          
-          // return () => isSubscribed = false
-          // () => setIsLoaded(false)
-        }, [isLoggedIn])
+      try {
+        loadData()
+      } catch (err){
+        console.log(err)
+        }
+      }, [isLoggedIn])
         
     const countiesInSummary = userCounties.map(userCounty => counties.find(county => county.id === userCounty.countyId))
         
