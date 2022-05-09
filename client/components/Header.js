@@ -136,7 +136,6 @@ export default function Header() {
     
     if (!headerDataIsLoaded) return <CircularLoading />
     
-    console.log('countiesinsummary', countiesInSummary)
     const statesIds = countiesInSummary.length > 0 ? countiesInSummary.reduce((accum, county) => {
       !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
       return accum;
