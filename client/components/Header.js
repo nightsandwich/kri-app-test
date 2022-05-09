@@ -34,14 +34,8 @@ export default function Header() {
   const allStates = useSelector(({states}) => states)
   let counties = useSelector(({counties}) => counties)
   let userCounties = useSelector(({userCounties}) => userCounties)
-  const countiesInSummary = userCounties.map(userCounty => counties.find(county => county.id === userCounty.countyId))
-  //const countiesInSummary = useSelector(state => state.counties.filter(county => county.inProject))
   
-  // const statesIds = countiesInSummary.length > 0 ? countiesInSummary.reduce((accum, county) => {
-  //   !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
-  //   return accum;
-  // },[]) : [];
-
+  
   const { header, logo, menuButton } = useStyles();
   const dispatch = useDispatch()
     const [state, setState] = useState({
@@ -149,9 +143,11 @@ export default function Header() {
         window.removeEventListener("resize", () => setResponsiveness());
       }
     }, []);
-
+    // if (!countiesInSummary || !allStates) return <CircularLoading />
     if (!headerDataIsLoaded) return <CircularLoading />
 
+    const countiesInSummary = userCounties.map(userCounty => counties.find(county => county.id === userCounty.countyId))
+    
     const statesIds = countiesInSummary.length > 0 ? countiesInSummary.reduce((accum, county) => {
       !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
       return accum;
