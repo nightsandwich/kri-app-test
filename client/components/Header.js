@@ -145,7 +145,7 @@ export default function Header() {
     }, []);
     // if (!countiesInSummary || !allStates) return <CircularLoading />
     if (!headerDataIsLoaded) return <CircularLoading />
-
+console.log('countiesinsummary', countiesInSummary)
     const countiesInSummary = userCounties.map(userCounty => counties.find(county => county.id === userCounty.countyId))
     
     const statesIds = countiesInSummary.length > 0 ? countiesInSummary.reduce((accum, county) => {
