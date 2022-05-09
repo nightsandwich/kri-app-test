@@ -10,7 +10,7 @@ import StatesTable from './components/StatesTable';
 import Profile from './components/Profile';
 import Password from './components/Password';
 
-import {me, loadNotes, loadCounties, loadStates} from './store'
+import {me, loadNotes, loadCounties, loadStates, loadUserCounties} from './store'
 
 /**
  * COMPONENT
@@ -18,9 +18,10 @@ import {me, loadNotes, loadCounties, loadStates} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
-    // this.props.loadInitialStates();
-    // this.props.loadInitialCounties();
-    // this.props.loadInitialNotes();
+    this.props.loadInitialStates();
+    this.props.loadInitialCounties();
+    this.props.loadInitialNotes();
+    this.props.loadInitialUserCounties();
   }
 
   render() {
@@ -82,6 +83,9 @@ const mapDispatch = dispatch => {
     },
     loadInitialNotes(){
       dispatch(loadNotes())
+    },
+    loadInitialUserCounties(){
+      dispatch(loadUserCounties())
     }
   }
 }

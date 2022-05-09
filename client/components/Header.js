@@ -68,20 +68,20 @@ export default function Header() {
     //   dispatch(loadNotes())
     //   dispatch(loadUserCounties())
     // }
-    const loadData = async() => {
-      await dispatch(loadStates())
-      await dispatch(loadCounties())
-      await dispatch(loadNotes())
-      await dispatch(loadUserCounties())
-      setHeaderDataIsLoaded(true);
-    }
-    useEffect(() => {
-      try {
-        loadData()
-      } catch (err){
-        console.log(err)
-        }
-      }, [isLoggedIn])
+    // const loadData = async() => {
+    //   await dispatch(loadStates())
+    //   await dispatch(loadCounties())
+    //   await dispatch(loadNotes())
+    //   await dispatch(loadUserCounties())
+    //   setHeaderDataIsLoaded(true);
+    // }
+    // useEffect(() => {
+    //   try {
+    //     loadData()
+    //   } catch (err){
+    //     console.log(err)
+    //     }
+    //   }, [isLoggedIn])
         
     const countiesInSummary = userCounties.map(userCounty => counties.find(county => county.id === userCounty.countyId))
         
@@ -134,7 +134,7 @@ export default function Header() {
       }
     }, []);
     
-    if (!headerDataIsLoaded) return <CircularLoading />
+    // if (!headerDataIsLoaded) return <CircularLoading />
     
     const statesIds = countiesInSummary.length > 0 ? countiesInSummary.reduce((accum, county) => {
       !accum.find(accum => accum === county.stateId) ? accum.push(county.stateId) : '';
